@@ -16,6 +16,7 @@ const JwtTokenManager = require('./security/JwtTokenManager');
 const AddUserUseCase = require('../Applications/use_case/AddUserUseCase');
 const LoginUserUseCase = require('../Applications/use_case/LoginUserUseCase');
 const RefreshAuthenticationUseCase = require('../Applications/use_case/RefreshAuthenticationUseCase');
+const DeleteAuthenticationUseCase = require('../Applications/use_case/DeleteAuthenticationUseCase');
 
 const serviceInstanceContainer = {
   userRepository: new UserRepositoryPostgres(pool, nanoid),
@@ -38,6 +39,9 @@ const useCaseInstaceContainer = {
   refreshAuthenticationUseCase: new RefreshAuthenticationUseCase({
     authenticationRepository: serviceInstanceContainer.authenticationRepository,
     authenticationTokenManager: serviceInstanceContainer.authenticationTokenManager,
+  }),
+  deleteAuthenticationUseCase: new DeleteAuthenticationUseCase({
+    authenticationRepository: serviceInstanceContainer.authenticationRepository,
   }),
 };
 
