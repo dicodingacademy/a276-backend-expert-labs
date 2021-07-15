@@ -28,6 +28,15 @@ class AuthenticationRepositoryPostgres extends AuthenticationRepository {
       throw new InvariantError('refresh token tidak ditemukan di database');
     }
   }
+
+  async deleteToken(token) {
+    const query = {
+      text: 'DELETE FROM authentications WHERE token = $1',
+      values: [token],
+    };
+
+    await this._pool.query(query);
+  }
 }
 
 module.exports = AuthenticationRepositoryPostgres;
