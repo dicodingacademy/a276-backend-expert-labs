@@ -30,14 +30,12 @@ class AuthenticationsHandler {
     const accessToken = await this._refreshAuthenticationUseCase
       .execute(request.payload);
 
-    const response = h.response({
+    return {
       status: 'success',
       data: {
         accessToken,
       },
-    });
-    response.code(200);
-    return response;
+    };
   }
 
   async deleteAuthenticationHandler(request) {
