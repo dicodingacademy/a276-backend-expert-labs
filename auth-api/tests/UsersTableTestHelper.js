@@ -7,7 +7,7 @@ const UsersTableTestHelper = {
   }) {
     const query = {
       text: 'INSERT INTO users VALUES($1, $2, $3, $4)',
-      values: [id, username, fullname, password],
+      values: [id, username, password, fullname],
     };
 
     await pool.query(query);
