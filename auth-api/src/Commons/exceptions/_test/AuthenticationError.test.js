@@ -1,4 +1,4 @@
-const AuthenticationError = require('../AuthorizationError');
+const AuthenticationError = require('../AuthenticationError');
 const ClientError = require('../ClientError');
 
 describe('AuthenticationError', () => {
