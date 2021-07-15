@@ -21,7 +21,7 @@ const serviceInstanceContainer = {
   userRepository: new UserRepositoryPostgres(pool, nanoid),
   authenticationRepository: new AuthenticationRepositoryPostgres(pool),
   encryptionHelper: new BcryptEncryptionHelper(bcrypt),
-  jwtTokenManager: new JwtTokenManager(Jwt.token),
+  authenticationTokenManager: new JwtTokenManager(Jwt.token),
 };
 
 const useCaseInstaceContainer = {
@@ -31,13 +31,13 @@ const useCaseInstaceContainer = {
   }),
   loginUserUseCase: new LoginUserUseCase({
     authenticationRepository: serviceInstanceContainer.authenticationRepository,
-    authenticationTokenManager: serviceInstanceContainer.jwtTokenManager,
+    authenticationTokenManager: serviceInstanceContainer.authenticationTokenManager,
     userRepository: serviceInstanceContainer.userRepository,
     encryptionHelper: serviceInstanceContainer.encryptionHelper,
   }),
   refreshAuthenticationUseCase: new RefreshAuthenticationUseCase({
     authenticationRepository: serviceInstanceContainer.authenticationRepository,
-    authenticationTokenManager: serviceInstanceContainer.jwtTokenManager,
+    authenticationTokenManager: serviceInstanceContainer.authenticationTokenManager,
   }),
 };
 
