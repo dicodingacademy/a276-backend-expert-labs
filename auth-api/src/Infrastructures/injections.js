@@ -15,14 +15,12 @@ const JwtTokenManager = require('./security/JwtTokenManager');
 // use case
 const AddUserUseCase = require('../Applications/use_case/AddUserUseCase');
 const LoginUserUseCase = require('../Applications/use_case/LoginUserUseCase');
-const RefreshAuthenticationUseCase = require('../Applications/use_case/RefreshAuthenticationUseCase');
-const LogoutUserUseCase = require('../Applications/use_case/LogoutUserUseCase');
 
 const serviceInstanceContainer = {
   userRepository: new UserRepositoryPostgres(pool, nanoid),
   authenticationRepository: new AuthenticationRepositoryPostgres(pool),
   encryptionHelper: new BcryptEncryptionHelper(bcrypt),
-  authenticationTokenManager: new JwtTokenManager(Jwt.token),
+  jwtTokenManager: new JwtTokenManager(Jwt.token),
 };
 
 const useCaseInstaceContainer = {
@@ -32,16 +30,9 @@ const useCaseInstaceContainer = {
   }),
   loginUserUseCase: new LoginUserUseCase({
     authenticationRepository: serviceInstanceContainer.authenticationRepository,
-    authenticationTokenManager: serviceInstanceContainer.authenticationTokenManager,
+    authenticationTokenManager: serviceInstanceContainer.jwtTokenManager,
     userRepository: serviceInstanceContainer.userRepository,
     encryptionHelper: serviceInstanceContainer.encryptionHelper,
-  }),
-  refreshAuthenticationUseCase: new RefreshAuthenticationUseCase({
-    authenticationRepository: serviceInstanceContainer.authenticationRepository,
-    authenticationTokenManager: serviceInstanceContainer.authenticationTokenManager,
-  }),
-  logoutUserUseCase: new LogoutUserUseCase({
-    authenticationRepository: serviceInstanceContainer.authenticationRepository,
   }),
 };
 
