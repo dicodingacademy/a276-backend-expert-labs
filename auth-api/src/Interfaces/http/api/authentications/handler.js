@@ -1,10 +1,16 @@
 class AuthenticationsHandler {
-  constructor({ loginUserUseCase, refreshAuthenticationUseCase }) {
+  constructor({
+    loginUserUseCase,
+    refreshAuthenticationUseCase,
+    deleteAuthenticationUseCase,
+  }) {
     this._loginUserUseCase = loginUserUseCase;
     this._refreshAuthenticationUseCase = refreshAuthenticationUseCase;
+    this._deleteAuthenticationUseCase = deleteAuthenticationUseCase;
 
     this.postAuthenticationHandler = this.postAuthenticationHandler.bind(this);
     this.putAuthenticationHandler = this.putAuthenticationHandler.bind(this);
+    this.deleteAuthenticationHandler = this.deleteAuthenticationHandler.bind(this);
   }
 
   async postAuthenticationHandler(request, h) {
@@ -32,6 +38,13 @@ class AuthenticationsHandler {
     });
     response.code(200);
     return response;
+  }
+
+  async deleteAuthenticationHandler(request) {
+    await this._deleteAuthenticationUseCase.execute(request.payload);
+    return {
+      status: 'success',
+    };
   }
 }
 
