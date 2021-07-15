@@ -2,7 +2,7 @@ const UserRepository = require('../../../Domains/users/UserRepository');
 const AuthenticationRepository = require('../../../Domains/authentications/AuthenticationRepository');
 const AuthenticationTokenManager = require('../../security/AuthenticationTokenManager');
 const EncryptionHelper = require('../../security/EncryptionHelper');
-const GetAuthenticationUseCase = require('../GetAuthenticationUseCase');
+const LoginUserUseCase = require('../LoginUserUseCase');
 const NewAuth = require('../../../Domains/authentications/entities/NewAuth');
 
 describe('GetAuthenticationUseCase', () => {
@@ -34,7 +34,7 @@ describe('GetAuthenticationUseCase', () => {
       .mockImplementation(() => Promise.resolve());
 
     // create use case instance
-    const getAuthenticationUseCase = new GetAuthenticationUseCase({
+    const loginUserUseCase = new LoginUserUseCase({
       userRepository: mockUserRepository,
       authenticationRepository: mockAuthenticationRepository,
       authenticationTokenManager: mockAuthenticationTokenManager,
@@ -42,7 +42,7 @@ describe('GetAuthenticationUseCase', () => {
     });
 
     // Action
-    const actualAuthentication = await getAuthenticationUseCase.execute(useCasePayload);
+    const actualAuthentication = await loginUserUseCase.execute(useCasePayload);
 
     // Assert
     expect(actualAuthentication).toEqual(expectedAuthentication);
