@@ -1,4 +1,4 @@
-class DeleteAuthenticationUseCase {
+class LogoutUserUseCase {
   constructor({
     authenticationRepository,
   }) {
@@ -24,4 +24,4 @@ class DeleteAuthenticationUseCase {
   }
 }
 
-module.exports = DeleteAuthenticationUseCase;
+module.exports = LogoutUserUseCase;
