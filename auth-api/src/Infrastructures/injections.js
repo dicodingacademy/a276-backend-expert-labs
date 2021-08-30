@@ -25,7 +25,7 @@ const serviceInstanceContainer = {
   authenticationTokenManager: new JwtTokenManager(Jwt.token),
 };
 
-const useCaseInstaceContainer = {
+const useCaseInstanceContainer = {
   addUserUseCase: new AddUserUseCase({
     userRepository: serviceInstanceContainer.userRepository,
     encryptionHelper: serviceInstanceContainer.encryptionHelper,
@@ -48,5 +48,5 @@ const useCaseInstaceContainer = {
 // export all instance
 module.exports = {
   ...serviceInstanceContainer,
-  ...useCaseInstaceContainer,
+  ...useCaseInstanceContainer,
 };
