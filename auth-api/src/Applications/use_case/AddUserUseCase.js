@@ -1,6 +1,6 @@
 const NewUser = require('../../Domains/users/entities/NewUser');
 
-class AddedUserUseCase {
+class AddUserUseCase {
   constructor({ userRepository, encryptionHelper }) {
     this._userRepository = userRepository;
     this._encryptionHelper = encryptionHelper;
@@ -14,4 +14,4 @@ class AddedUserUseCase {
   }
 }
 
-module.exports = AddedUserUseCase;
+module.exports = AddUserUseCase;
