@@ -1,6 +1,6 @@
-const AddedUser = require('../AddedUser');
+const RegisteredUser = require('../RegisteredUser');
 
-describe('a AddedUser entities', () => {
+describe('a RegisteredUser entities', () => {
   it('should throw error when payload did not contain needed property', () => {
     // Arrange
     const payload = {
@@ -9,7 +9,7 @@ describe('a AddedUser entities', () => {
     };
 
     // Action and Assert
-    expect(() => new AddedUser(payload)).toThrowError('ADDED_USER.NOT_CONTAIN_NEEDED_PROPERTY');
+    expect(() => new RegisteredUser(payload)).toThrowError('REGISTERED_USER.NOT_CONTAIN_NEEDED_PROPERTY');
   });
 
   it('should throw error when payload did not meet data type specification', () => {
@@ -21,10 +21,10 @@ describe('a AddedUser entities', () => {
     };
 
     // Action and Assert
-    expect(() => new AddedUser(payload)).toThrowError('ADDED_USER.NOT_MEET_DATA_TYPE_SPECIFICATION');
+    expect(() => new RegisteredUser(payload)).toThrowError('REGISTERED_USER.NOT_MEET_DATA_TYPE_SPECIFICATION');
   });
 
-  it('should create newUser object correctly', () => {
+  it('should create registeredUser object correctly', () => {
     // Arrange
     const payload = {
       id: 'user-123',
@@ -33,11 +33,11 @@ describe('a AddedUser entities', () => {
     };
 
     // Action
-    const addedUser = new AddedUser(payload);
+    const registeredUser = new RegisteredUser(payload);
 
     // Assert
-    expect(addedUser.id).toEqual(payload.id);
-    expect(addedUser.username).toEqual(payload.username);
-    expect(addedUser.fullname).toEqual(payload.fullname);
+    expect(registeredUser.id).toEqual(payload.id);
+    expect(registeredUser.username).toEqual(payload.username);
+    expect(registeredUser.fullname).toEqual(payload.fullname);
   });
 });

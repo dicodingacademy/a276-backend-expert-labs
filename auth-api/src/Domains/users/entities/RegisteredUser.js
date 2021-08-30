@@ -1,4 +1,4 @@
-class AddedUser {
+class RegisteredUser {
   constructor(payload) {
     this._verifyPayload(payload);
 
@@ -11,13 +11,13 @@ class AddedUser {
 
   _verifyPayload({ id, username, fullname }) {
     if (!id || !username || !fullname) {
-      throw new Error('ADDED_USER.NOT_CONTAIN_NEEDED_PROPERTY');
+      throw new Error('REGISTERED_USER.NOT_CONTAIN_NEEDED_PROPERTY');
     }
 
     if (typeof id !== 'string' || typeof username !== 'string' || typeof fullname !== 'string') {
-      throw new Error('ADDED_USER.NOT_MEET_DATA_TYPE_SPECIFICATION');
+      throw new Error('REGISTERED_USER.NOT_MEET_DATA_TYPE_SPECIFICATION');
     }
   }
 }
 
-module.exports = AddedUser;
+module.exports = RegisteredUser;
