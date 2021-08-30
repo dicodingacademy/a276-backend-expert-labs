@@ -1,5 +1,5 @@
-const NewUser = require('../../../Domains/users/entities/NewUser');
-const AddedUser = require('../../../Domains/users/entities/AddedUser');
+const RegisterUser = require('../../../Domains/users/entities/RegisterUser');
+const RegisteredUser = require('../../../Domains/users/entities/RegisteredUser');
 const UserRepository = require('../../../Domains/users/UserRepository');
 const EncryptionHelper = require('../../security/EncryptionHelper');
 const AddUserUseCase = require('../AddUserUseCase');
@@ -15,7 +15,7 @@ describe('AddUserUseCase', () => {
       password: 'secret',
       fullname: 'Dicoding Indonesia',
     };
-    const expectedAddedUser = new AddedUser({
+    const expectedRegisteredUser = new RegisteredUser({
       id: 'user-123',
       username: useCasePayload.username,
       fullname: useCasePayload.fullname,
@@ -31,7 +31,7 @@ describe('AddUserUseCase', () => {
     mockEncryptionHelper.encryptPassword = jest.fn()
       .mockImplementation(() => Promise.resolve('encrypted_password'));
     mockUserRepository.addUser = jest.fn()
-      .mockImplementation(() => Promise.resolve(expectedAddedUser));
+      .mockImplementation(() => Promise.resolve(expectedRegisteredUser));
 
     /** creating use case instance */
     const getUserUseCase = new AddUserUseCase({
@@ -40,13 +40,13 @@ describe('AddUserUseCase', () => {
     });
 
     // Action
-    const addedUser = await getUserUseCase.execute(useCasePayload);
+    const registeredUser = await getUserUseCase.execute(useCasePayload);
 
     // Assert
-    expect(addedUser).toStrictEqual(expectedAddedUser);
+    expect(registeredUser).toStrictEqual(expectedRegisteredUser);
     expect(mockUserRepository.verifyAvailableUsername).toBeCalledWith(useCasePayload.username);
     expect(mockEncryptionHelper.encryptPassword).toBeCalledWith(useCasePayload.password);
-    expect(mockUserRepository.addUser).toBeCalledWith(new NewUser({
+    expect(mockUserRepository.addUser).toBeCalledWith(new RegisterUser({
       username: useCasePayload.username,
       password: 'encrypted_password',
       fullname: useCasePayload.fullname,

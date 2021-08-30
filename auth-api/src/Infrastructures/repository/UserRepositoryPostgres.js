@@ -1,5 +1,5 @@
 const InvariantError = require('../../Commons/exceptions/InvariantError');
-const AddedUser = require('../../Domains/users/entities/AddedUser');
+const RegisteredUser = require('../../Domains/users/entities/RegisteredUser');
 const UserRepository = require('../../Domains/users/UserRepository');
 
 class UserRepositoryPostgres extends UserRepository {
@@ -22,8 +22,8 @@ class UserRepositoryPostgres extends UserRepository {
     }
   }
 
-  async addUser(newUser) {
-    const { username, password, fullname } = newUser;
+  async addUser(registerUser) {
+    const { username, password, fullname } = registerUser;
     const id = `user-${this._idGenerator()}`;
 
     const query = {
@@ -33,7 +33,7 @@ class UserRepositoryPostgres extends UserRepository {
 
     const result = await this._pool.query(query);
 
-    return new AddedUser({ ...result.rows[0] });
+    return new RegisteredUser({ ...result.rows[0] });
   }
 }
 

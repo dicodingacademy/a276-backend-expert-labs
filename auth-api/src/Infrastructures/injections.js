@@ -17,7 +17,7 @@ const serviceInstanceContainer = {
   encryptionHelper: new BcryptEncryptionHelper(bcrypt),
 };
 
-const useCaseInstaceContainer = {
+const useCaseInstanceContainer = {
   addUserUseCase: new AddUserUseCase({
     userRepository: serviceInstanceContainer.userRepository,
     encryptionHelper: serviceInstanceContainer.encryptionHelper,
@@ -27,5 +27,5 @@ const useCaseInstaceContainer = {
 // export all instance
 module.exports = {
   ...serviceInstanceContainer,
-  ...useCaseInstaceContainer,
+  ...useCaseInstanceContainer,
 };

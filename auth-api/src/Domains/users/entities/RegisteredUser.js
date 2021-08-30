@@ -1,4 +1,4 @@
-class AddedUser {
+class RegisteredUser {
   constructor(payload) {
     this._verifyPayload(payload);
 
@@ -20,4 +20,4 @@ class AddedUser {
   }
 }
 
-module.exports = AddedUser;
+module.exports = RegisteredUser;
