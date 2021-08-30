@@ -1,7 +1,7 @@
 const UsersTableTestHelper = require('../../../../tests/UsersTableTestHelper');
 const InvariantError = require('../../../Commons/exceptions/InvariantError');
 const UserRepository = require('../../../Domains/users/UserRepository');
-const NewUser = require('../../../Domains/users/entities/NewUser');
+const RegisterUser = require('../../../Domains/users/entities/RegisterUser');
 const AddedUser = require('../../../Domains/users/entities/AddedUser');
 const pool = require('../../database/postgres/pool');
 const UserRepositoryPostgres = require('../UserRepositoryPostgres');
@@ -42,9 +42,9 @@ describe('UserRepositoryPostgres', () => {
     });
 
     describe('addUser function', () => {
-      it('should persist new user and return added user correctly', async () => {
+      it('should persist register user and return added user correctly', async () => {
         // Arrange
-        const newUser = new NewUser({
+        const registerUser = new RegisterUser({
           username: 'dicoding',
           password: 'secret_password',
           fullname: 'Dicoding Indonesia',
@@ -53,7 +53,7 @@ describe('UserRepositoryPostgres', () => {
         const userRepositoryPostgres = new UserRepositoryPostgres(pool, fakeIdGenerator);
 
         // Action
-        const addedUser = await userRepositoryPostgres.addUser(newUser);
+        const addedUser = await userRepositoryPostgres.addUser(registerUser);
 
         // Assert
         const users = await UsersTableTestHelper.findUsersById('user-123');

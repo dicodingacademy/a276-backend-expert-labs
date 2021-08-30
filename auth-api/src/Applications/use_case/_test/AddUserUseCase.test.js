@@ -1,4 +1,4 @@
-const NewUser = require('../../../Domains/users/entities/NewUser');
+const RegisterUser = require('../../../Domains/users/entities/RegisterUser');
 const AddedUser = require('../../../Domains/users/entities/AddedUser');
 const UserRepository = require('../../../Domains/users/UserRepository');
 const EncryptionHelper = require('../../security/EncryptionHelper');
@@ -46,7 +46,7 @@ describe('AddUserUseCase', () => {
     expect(addedUser).toStrictEqual(expectedAddedUser);
     expect(mockUserRepository.verifyAvailableUsername).toBeCalledWith(useCasePayload.username);
     expect(mockEncryptionHelper.encryptPassword).toBeCalledWith(useCasePayload.password);
-    expect(mockUserRepository.addUser).toBeCalledWith(new NewUser({
+    expect(mockUserRepository.addUser).toBeCalledWith(new RegisterUser({
       username: useCasePayload.username,
       password: 'encrypted_password',
       fullname: useCasePayload.fullname,
