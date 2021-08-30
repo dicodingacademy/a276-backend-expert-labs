@@ -1,5 +1,4 @@
 const NotFoundError = require('../NotFoundError');
-const ClientError = require('../ClientError');
 
 describe('NotFoundError', () => {
   it('should create error correctly', () => {
