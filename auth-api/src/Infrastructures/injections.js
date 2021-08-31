@@ -7,20 +7,20 @@ const pool = require('./database/postgres/pool');
 
 // service (repository, helper, manager, etc)
 const UserRepositoryPostgres = require('./repository/UserRepositoryPostgres');
-const BcryptEncryptionHelper = require('./security/BcryptEncryptionHelper');
+const BcryptPasswordHash = require('./security/BcryptPasswordHash');
 
 // use case
 const AddUserUseCase = require('../Applications/use_case/AddUserUseCase');
 
 const serviceInstanceContainer = {
   userRepository: new UserRepositoryPostgres(pool, nanoid),
-  encryptionHelper: new BcryptEncryptionHelper(bcrypt),
+  passwordHash: new BcryptPasswordHash(bcrypt),
 };
 
 const useCaseInstanceContainer = {
   addUserUseCase: new AddUserUseCase({
     userRepository: serviceInstanceContainer.userRepository,
-    encryptionHelper: serviceInstanceContainer.encryptionHelper,
+    passwordHash: serviceInstanceContainer.passwordHash,
   }),
 };
 
