@@ -1,15 +1,8 @@
 const bcrypt = require('bcrypt');
-const PasswordHash = require('../../../Applications/security/PasswordHash');
 const AuthenticationError = require('../../../Commons/exceptions/AuthenticationError');
 const BcryptPasswordHash = require('../BcryptPasswordHash');
 
 describe('BcryptPasswordHash', () => {
-  it('should be instance of PasswordHash', () => {
-    const bcryptPasswordHash = new BcryptPasswordHash({}); // dummy bcrypt
-
-    expect(bcryptPasswordHash).toBeInstanceOf(PasswordHash);
-  });
-
   describe('encryptPassword function', () => {
     it('should encrypt password correctly', async () => {
       // Arrange
