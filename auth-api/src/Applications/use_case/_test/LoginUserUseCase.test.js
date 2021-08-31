@@ -1,7 +1,7 @@
 const UserRepository = require('../../../Domains/users/UserRepository');
 const AuthenticationRepository = require('../../../Domains/authentications/AuthenticationRepository');
 const AuthenticationTokenManager = require('../../security/AuthenticationTokenManager');
-const EncryptionHelper = require('../../security/EncryptionHelper');
+const PasswordHash = require('../../security/PasswordHash');
 const LoginUserUseCase = require('../LoginUserUseCase');
 const NewAuth = require('../../../Domains/authentications/entities/NewAuth');
 
@@ -19,12 +19,12 @@ describe('GetAuthenticationUseCase', () => {
     const mockUserRepository = new UserRepository();
     const mockAuthenticationRepository = new AuthenticationRepository();
     const mockAuthenticationTokenManager = new AuthenticationTokenManager();
-    const mockEncryptionHelper = new EncryptionHelper();
+    const mockPasswordHash = new PasswordHash();
 
     // Mocking
     mockUserRepository.getPasswordByUsername = jest.fn()
       .mockImplementation(() => Promise.resolve('encrypted_password'));
-    mockEncryptionHelper.comparePassword = jest.fn()
+    mockPasswordHash.compare = jest.fn()
       .mockImplementation(() => Promise.resolve());
     mockAuthenticationTokenManager.createAccessToken = jest.fn()
       .mockImplementation(() => Promise.resolve(expectedAuthentication.accessToken));
@@ -38,7 +38,7 @@ describe('GetAuthenticationUseCase', () => {
       userRepository: mockUserRepository,
       authenticationRepository: mockAuthenticationRepository,
       authenticationTokenManager: mockAuthenticationTokenManager,
-      encryptionHelper: mockEncryptionHelper,
+      passwordHash: mockPasswordHash,
     });
 
     // Action
@@ -48,7 +48,7 @@ describe('GetAuthenticationUseCase', () => {
     expect(actualAuthentication).toEqual(expectedAuthentication);
     expect(mockUserRepository.getPasswordByUsername)
       .toBeCalledWith('dicoding');
-    expect(mockEncryptionHelper.comparePassword)
+    expect(mockPasswordHash.compare)
       .toBeCalledWith('secret', 'encrypted_password');
     expect(mockAuthenticationTokenManager.createAccessToken)
       .toBeCalledWith({ username: 'dicoding' });

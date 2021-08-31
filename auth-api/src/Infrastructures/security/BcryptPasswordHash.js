@@ -1,18 +1,18 @@
-const EncryptionHelper = require('../../Applications/security/EncryptionHelper');
+const PasswordHash = require('../../Applications/security/PasswordHash');
 const AuthenticationError = require('../../Commons/exceptions/AuthenticationError');
 
-class BcryptEncryptionHelper extends EncryptionHelper {
+class BcryptPasswordHash extends PasswordHash {
   constructor(bcrypt, saltRound = 10) {
     super();
     this._bcrypt = bcrypt;
     this._saltRound = saltRound;
   }
 
-  async encryptPassword(password) {
+  async hash(password) {
     return this._bcrypt.hash(password, this._saltRound);
   }
 
-  async comparePassword(password, hashedPassword) {
+  async compare(password, hashedPassword) {
     const result = await this._bcrypt.compare(password, hashedPassword);
 
     if (!result) {
@@ -21,4 +21,4 @@ class BcryptEncryptionHelper extends EncryptionHelper {
   }
 }
 
-module.exports = BcryptEncryptionHelper;
+module.exports = BcryptPasswordHash;

@@ -9,7 +9,7 @@ const pool = require('./database/postgres/pool');
 // service (repository, helper, manager, etc)
 const UserRepositoryPostgres = require('./repository/UserRepositoryPostgres');
 const AuthenticationRepositoryPostgres = require('./repository/AuthenticationRepositoryPostgres');
-const BcryptEncryptionHelper = require('./security/BcryptEncryptionHelper');
+const BcryptPasswordHash = require('./security/BcryptPasswordHash');
 const JwtTokenManager = require('./security/JwtTokenManager');
 
 // use case
@@ -21,20 +21,20 @@ const DeleteAuthenticationUseCase = require('../Applications/use_case/LogoutUser
 const serviceInstanceContainer = {
   userRepository: new UserRepositoryPostgres(pool, nanoid),
   authenticationRepository: new AuthenticationRepositoryPostgres(pool),
-  encryptionHelper: new BcryptEncryptionHelper(bcrypt),
+  passwordHash: new BcryptPasswordHash(bcrypt),
   authenticationTokenManager: new JwtTokenManager(Jwt.token),
 };
 
 const useCaseInstanceContainer = {
   addUserUseCase: new AddUserUseCase({
     userRepository: serviceInstanceContainer.userRepository,
-    encryptionHelper: serviceInstanceContainer.encryptionHelper,
+    passwordHash: serviceInstanceContainer.passwordHash,
   }),
   loginUserUseCase: new LoginUserUseCase({
     authenticationRepository: serviceInstanceContainer.authenticationRepository,
     authenticationTokenManager: serviceInstanceContainer.authenticationTokenManager,
     userRepository: serviceInstanceContainer.userRepository,
-    encryptionHelper: serviceInstanceContainer.encryptionHelper,
+    passwordHash: serviceInstanceContainer.passwordHash,
   }),
   refreshAuthenticationUseCase: new RefreshAuthenticationUseCase({
     authenticationRepository: serviceInstanceContainer.authenticationRepository,
