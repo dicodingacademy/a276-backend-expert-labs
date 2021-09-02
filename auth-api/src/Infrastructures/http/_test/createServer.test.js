@@ -1,6 +1,6 @@
 const pool = require('../../database/postgres/pool');
 const UsersTableTestHelper = require('../../../../tests/UsersTableTestHelper');
-const injections = require('../../injections');
+const container = require('../../container');
 const createServer = require('../createServer');
 
 describe('HTTP server', () => {
@@ -34,7 +34,7 @@ describe('HTTP server', () => {
         password: 'secret',
         fullname: 'Dicoding Indonesia',
       };
-      const server = await createServer(injections);
+      const server = await createServer(container);
 
       // Action
       const response = await server.inject({
@@ -56,7 +56,7 @@ describe('HTTP server', () => {
         fullname: 'Dicoding Indonesia',
         password: 'secret',
       };
-      const server = await createServer(injections);
+      const server = await createServer(container);
 
       // Action
       const response = await server.inject({
@@ -79,7 +79,7 @@ describe('HTTP server', () => {
         password: 'secret',
         fullname: ['Dicoding Indonesia'],
       };
-      const server = await createServer(injections);
+      const server = await createServer(container);
 
       // Action
       const response = await server.inject({
@@ -102,7 +102,7 @@ describe('HTTP server', () => {
         password: 'secret',
         fullname: 'Dicoding Indonesia',
       };
-      const server = await createServer(injections);
+      const server = await createServer(container);
 
       // Action
       const response = await server.inject({
@@ -125,7 +125,7 @@ describe('HTTP server', () => {
         password: 'secret',
         fullname: 'Dicoding Indonesia',
       };
-      const server = await createServer(injections);
+      const server = await createServer(container);
 
       // Action
       const response = await server.inject({
@@ -149,7 +149,7 @@ describe('HTTP server', () => {
         fullname: 'Dicoding Indonesia',
         password: 'super_secret',
       };
-      const server = await createServer(injections);
+      const server = await createServer(container);
 
       // Action
       const response = await server.inject({
