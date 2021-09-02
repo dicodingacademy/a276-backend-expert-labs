@@ -1,8 +1,9 @@
 const pool = require('../../database/postgres/pool');
 const UsersTableTestHelper = require('../../../../tests/UsersTableTestHelper');
 const AuthenticationsTableTestHelper = require('../../../../tests/AuthenticationsTableTestHelper');
-const injections = require('../../injections');
+const container = require('../../container');
 const createServer = require('../createServer');
+const AuthenticationTokenManager = require('../../../Applications/security/AuthenticationTokenManager');
 
 describe('HTTP server', () => {
   afterAll(async () => {
@@ -36,7 +37,7 @@ describe('HTTP server', () => {
         password: 'secret',
         fullname: 'Dicoding Indonesia',
       };
-      const server = await createServer(injections);
+      const server = await createServer(container);
 
       // Action
       const response = await server.inject({
@@ -58,7 +59,7 @@ describe('HTTP server', () => {
         fullname: 'Dicoding Indonesia',
         password: 'secret',
       };
-      const server = await createServer(injections);
+      const server = await createServer(container);
 
       // Action
       const response = await server.inject({
@@ -81,7 +82,7 @@ describe('HTTP server', () => {
         password: 'secret',
         fullname: ['Dicoding Indonesia'],
       };
-      const server = await createServer(injections);
+      const server = await createServer(container);
 
       // Action
       const response = await server.inject({
@@ -104,7 +105,7 @@ describe('HTTP server', () => {
         password: 'secret',
         fullname: 'Dicoding Indonesia',
       };
-      const server = await createServer(injections);
+      const server = await createServer(container);
 
       // Action
       const response = await server.inject({
@@ -127,7 +128,7 @@ describe('HTTP server', () => {
         password: 'secret',
         fullname: 'Dicoding Indonesia',
       };
-      const server = await createServer(injections);
+      const server = await createServer(container);
 
       // Action
       const response = await server.inject({
@@ -151,7 +152,7 @@ describe('HTTP server', () => {
         fullname: 'Dicoding Indonesia',
         password: 'super_secret',
       };
-      const server = await createServer(injections);
+      const server = await createServer(container);
 
       // Action
       const response = await server.inject({
@@ -175,7 +176,7 @@ describe('HTTP server', () => {
         username: 'dicoding',
         password: 'secret',
       };
-      const server = await createServer(injections);
+      const server = await createServer(container);
       // add user
       await server.inject({
         method: 'POST',
@@ -208,7 +209,7 @@ describe('HTTP server', () => {
         username: 'dicoding',
         password: 'secret',
       };
-      const server = await createServer(injections);
+      const server = await createServer(container);
 
       // Action
       const response = await server.inject({
@@ -230,7 +231,7 @@ describe('HTTP server', () => {
         username: 'dicoding',
         password: 'wrong_password',
       };
-      const server = await createServer(injections);
+      const server = await createServer(container);
       // Add user
       await server.inject({
         method: 'POST',
@@ -261,7 +262,7 @@ describe('HTTP server', () => {
       const requestPayload = {
         username: 'dicoding',
       };
-      const server = await createServer(injections);
+      const server = await createServer(container);
 
       // Action
       const response = await server.inject({
@@ -283,7 +284,7 @@ describe('HTTP server', () => {
         username: 123,
         password: 'secret',
       };
-      const server = await createServer(injections);
+      const server = await createServer(container);
 
       // Action
       const response = await server.inject({
@@ -303,7 +304,7 @@ describe('HTTP server', () => {
   describe('when PUT /authentications', () => {
     it('should return 200 and new access token', async () => {
       // Arrange
-      const server = await createServer(injections);
+      const server = await createServer(container);
       // add user
       await server.inject({
         method: 'POST',
@@ -342,7 +343,7 @@ describe('HTTP server', () => {
 
     it('should return 400 payload not contain refresh token', async () => {
       // Arrange
-      const server = await createServer(injections);
+      const server = await createServer(container);
 
       // Action
       const response = await server.inject({
@@ -359,7 +360,7 @@ describe('HTTP server', () => {
 
     it('should return 400 if refresh token not string', async () => {
       // Arrange
-      const server = await createServer(injections);
+      const server = await createServer(container);
 
       // Action
       const response = await server.inject({
@@ -378,7 +379,7 @@ describe('HTTP server', () => {
 
     it('should return 400 if refresh token not valid', async () => {
       // Arrange
-      const server = await createServer(injections);
+      const server = await createServer(container);
 
       // Action
       const response = await server.inject({
@@ -398,8 +399,8 @@ describe('HTTP server', () => {
 
     it('should return 400 if refresh token not registered in database', async () => {
       // Arrange
-      const server = await createServer(injections);
-      const refreshToken = await injections.authenticationTokenManager.createRefreshToken({ username: 'dicoding' });
+      const server = await createServer(container);
+      const refreshToken = await container.getInstance(AuthenticationTokenManager.name).createRefreshToken({ username: 'dicoding' });
 
       // Action
       const response = await server.inject({
@@ -421,7 +422,7 @@ describe('HTTP server', () => {
   describe('when DELETE /authentications', () => {
     it('should response 200 if refresh token valid', async () => {
       // Arrange
-      const server = await createServer(injections);
+      const server = await createServer(container);
       const refreshToken = 'refresh_token';
       await AuthenticationsTableTestHelper.addToken(refreshToken);
 
@@ -442,7 +443,7 @@ describe('HTTP server', () => {
 
     it('should response 400 if refresh token not registered in database', async () => {
       // Arrange
-      const server = await createServer(injections);
+      const server = await createServer(container);
       const refreshToken = 'refresh_token';
 
       // Action
@@ -463,7 +464,7 @@ describe('HTTP server', () => {
 
     it('should response 400 if payload not contain refresh token', async () => {
       // Arrange
-      const server = await createServer(injections);
+      const server = await createServer(container);
 
       // Action
       const response = await server.inject({
@@ -480,7 +481,7 @@ describe('HTTP server', () => {
 
     it('should response 400 if refresh token not string', async () => {
       // Arrange
-      const server = await createServer(injections);
+      const server = await createServer(container);
 
       // Action
       const response = await server.inject({

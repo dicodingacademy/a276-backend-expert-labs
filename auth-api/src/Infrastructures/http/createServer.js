@@ -4,7 +4,7 @@ const DomainErrorTranslator = require('../../Commons/exceptions/DomainErrorTrans
 const users = require('../../Interfaces/http/api/users');
 const authentications = require('../../Interfaces/http/api/authentications');
 
-const createServer = async (injections) => {
+const createServer = async (container) => {
   const server = Hapi.server({
     host: process.env.HOST,
     port: process.env.PORT,
@@ -13,11 +13,11 @@ const createServer = async (injections) => {
   await server.register([
     {
       plugin: users,
-      options: { injections },
+      options: { container },
     },
     {
       plugin: authentications,
-      options: { injections },
+      options: { container },
     },
   ]);
 
