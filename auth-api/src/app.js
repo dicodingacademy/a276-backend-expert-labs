@@ -1,9 +1,9 @@
 require('dotenv').config();
 const createServer = require('./Infrastructures/http/createServer');
-const injections = require('./Infrastructures/injections');
+const container = require('./Infrastructures/container');
 
 const start = async () => {
-  const server = await createServer(injections);
+  const server = await createServer(container);
   await server.start();
   console.log(`server start at ${server.info.uri}`);
 };
