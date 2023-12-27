@@ -4,11 +4,11 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "@hapi/hapi": "^20.1.5"
+    "@hapi/hapi": "^21.3.2"
   },
   "devDependencies": {
-    "@types/jest": "^26.0.23",
-    "jest": "^27.0.6"
+    "@types/jest": "^29.5.11",
+    "jest": "^29.7.0"
   },
   "scripts": {
     "test": "jest"
