@@ -19,7 +19,6 @@ const config = {
     password: process.env.PGPASSWORD,
     database: process.env.PGDATABASE,
   },
-  JWT_STRATEGY: 'forumapi',
 };
 
 module.exports = config;
