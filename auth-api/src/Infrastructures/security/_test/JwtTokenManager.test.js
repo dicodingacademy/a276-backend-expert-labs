@@ -19,7 +19,7 @@ describe('JwtTokenManager', () => {
       const accessToken = await jwtTokenManager.createAccessToken(payload);
 
       // Assert
-      expect(mockJwtToken.generate).toBeCalledWith(payload,config.auth.accessTokenKey);
+      expect(mockJwtToken.generate).toBeCalledWith(payload, config.auth.accessTokenKey);
       expect(accessToken).toEqual('mock_token');
     });
   });
