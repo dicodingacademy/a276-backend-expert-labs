@@ -1,6 +1,7 @@
 .idea
 node_modules
 .env
+.test.env
 package-lock.json
 coverage
 auth-api/config/database/test.json
