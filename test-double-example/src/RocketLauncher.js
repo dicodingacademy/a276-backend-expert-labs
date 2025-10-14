@@ -1,4 +1,4 @@
-class RocketLauncher {
+export default class RocketLauncher {
   constructor(repairKit, rockets = []) {
     this.repairKit = repairKit;
     this.rockets = rockets;
@@ -35,5 +35,3 @@ class RocketLauncher {
     return `there was ${failedRepairCount} of ${this.rockets.length} rocket fail to repair!`;
   }
 }
-
-module.exports = RocketLauncher;
