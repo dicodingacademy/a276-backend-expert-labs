@@ -10,4 +10,4 @@ const detectTriangle = (sideA, sideB, sideC) => {
   return 'Segitiga sembarang';
 };
 
-module.exports = detectTriangle;
+export default detectTriangle;
