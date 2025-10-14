@@ -2,9 +2,10 @@
   "name": "math-api",
   "version": "1.0.0",
   "description": "",
+  "type": "module",
   "main": "index.js",
   "scripts": {
-    "test": "jest --watchAll --coverage"
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --watchAll --coverage"
   },
   "keywords": [],
   "author": "",
@@ -15,5 +16,11 @@
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.29.1",
     "jest": "^29.7.0"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "extensionsToTreatAsEsm": [
+      ".js"
+    ]
   }
 }
