@@ -2,9 +2,10 @@
   "name": "math-api",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "type": "module",
+  "main": "src/app.js",
   "scripts": {
-    "test": "jest --watchAll --coverage"
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest --watchAll --coverage"
   },
   "keywords": [],
   "author": "",

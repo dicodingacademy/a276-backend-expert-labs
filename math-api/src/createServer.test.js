@@ -1,6 +1,7 @@
-const createServer = require('./createServer');
-const FigureCalculator = require('./FigureCalculator');
-const MathBasic = require('./MathBasic');
+import { jest } from '@jest/globals';
+import createServer from './createServer.js';
+import FigureCalculator from './FigureCalculator.js';
+import MathBasic from './MathBasic.js';
 
 describe('A HTTP Server', () => {
   describe('when GET /add', () => {

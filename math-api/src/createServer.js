@@ -1,4 +1,4 @@
-const Hapi = require('@hapi/hapi');
+import Hapi from '@hapi/hapi';
 
 const createServer = ({ mathBasic, figureCalculator }) => {
   const server = Hapi.server({
@@ -86,4 +86,4 @@ const createServer = ({ mathBasic, figureCalculator }) => {
   return server;
 };
 
-module.exports = createServer;
+export default createServer;
