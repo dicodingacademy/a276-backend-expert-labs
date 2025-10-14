@@ -2,7 +2,8 @@
   "name": "hapi-test-example",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "type": "module",
+  "main": "src/createServer.js",
   "dependencies": {
     "@hapi/hapi": "^21.3.2"
   },
