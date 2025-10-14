@@ -1,4 +1,4 @@
-const Hapi = require('@hapi/hapi');
+import Hapi from '@hapi/hapi';
 
 const createServer = () => {
   const server = Hapi.server({
@@ -27,4 +27,4 @@ const createServer = () => {
   return server;
 };
 
-module.exports = createServer;
+export default createServer;

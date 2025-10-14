@@ -1,4 +1,4 @@
-const createServer = require('./createServer');
+import createServer from './createServer.js';
 
 describe('Hapi Server', () => {
   it('should response 200 with payload value "Hello World" when GET /hello', async () => {
