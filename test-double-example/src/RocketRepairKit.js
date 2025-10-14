@@ -1,4 +1,4 @@
-class RocketRepairKit  {
+export default class RocketRepairKit  {
   /**
    * Anggap proses membuat instance RocketRepairKit itu rumit
    * Karena ia membutuhkan banyak dependencies.
@@ -21,5 +21,3 @@ class RocketRepairKit  {
     });
   }
 }
-
-module.exports = RocketRepairKit;

@@ -1,6 +1,6 @@
-const Rocket = require('./Rocket');
-const RocketLauncher = require('./RocketLauncher');
-const RocketRepairKit = require('./RocketRepairKit');
+import Rocket from './Rocket.js';
+import RocketLauncher from './RocketLauncher.js';
+import RocketRepairKit from './RocketRepairKit.js';
 
 describe('A RocketLauncher', () => {
 
