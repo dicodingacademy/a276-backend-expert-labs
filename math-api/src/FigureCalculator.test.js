@@ -1,5 +1,11 @@
-const FigureCalculator = require('./FigureCalculator');
-const MathBasic = require('./MathBasic');
+import {
+  describe,
+  expect,
+  it,
+  jest,
+} from '@jest/globals';
+import FigureCalculator from './FigureCalculator.js';
+import MathBasic from './MathBasic.js';
 
 describe('A FigureCalculator', () => {
   it('should contain calculateRectanglePerimeter, calculateRectangleArea, calculateTrianglePerimeter, and calculateTriangleArea functions', () => {

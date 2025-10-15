@@ -1,4 +1,5 @@
-const MathBasic = require('./MathBasic');
+import { describe, expect, it } from '@jest/globals';
+import MathBasic from './MathBasic.js';
 
 describe('A MathBasic', () => {
   it('should contains add, subtract, multiply, and divide function', () => {
