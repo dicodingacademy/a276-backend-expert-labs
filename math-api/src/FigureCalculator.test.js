@@ -36,8 +36,8 @@ describe('A FigureCalculator', () => {
       // Arrange
       const length = 20;
       const width = 10;
-      const spyAdd = jest.spyOn(MathBasic, 'add');
-      const spyMultiply = jest.spyOn(MathBasic, 'multiply');
+      const spyAdd = vi.spyOn(MathBasic, 'add');
+      const spyMultiply = vi.spyOn(MathBasic, 'multiply');
       const figureCalculator = new FigureCalculator(MathBasic);
 
       // Action
@@ -71,7 +71,7 @@ describe('A FigureCalculator', () => {
       // Arrange
       const length = 5;
       const width = 8;
-      const spyMultiply = jest.spyOn(MathBasic, 'multiply');
+      const spyMultiply = vi.spyOn(MathBasic, 'multiply');
       const figureCalculator = new FigureCalculator(MathBasic);
 
       // Action
@@ -106,7 +106,7 @@ describe('A FigureCalculator', () => {
       const sideA = 5;
       const sideB = 7;
       const base = 10;
-      const spyAdd = jest.spyOn(MathBasic, 'add');
+      const spyAdd = vi.spyOn(MathBasic, 'add');
       const figureCalculator = new FigureCalculator(MathBasic);
 
       // Action
@@ -139,8 +139,8 @@ describe('A FigureCalculator', () => {
       // Arrange
       const base = 10;
       const height = 15;
-      const spyMultiply = jest.spyOn(MathBasic, 'multiply');
-      const spyDivide = jest.spyOn(MathBasic, 'divide');
+      const spyMultiply = vi.spyOn(MathBasic, 'multiply');
+      const spyDivide = vi.spyOn(MathBasic, 'divide');
       const figureCalculator = new FigureCalculator(MathBasic);
 
       // Action
