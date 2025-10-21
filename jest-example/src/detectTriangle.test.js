@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest';
 import detectTriangle from './detectTriangle.js';
 
 describe('Sebuah fungsi detectTriangle', () => {
