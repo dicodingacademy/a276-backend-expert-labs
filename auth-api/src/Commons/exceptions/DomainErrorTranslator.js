@@ -1,4 +1,4 @@
-const InvariantError = require('./InvariantError');
+import InvariantError from './InvariantError.js';
 
 const DomainErrorTranslator = {
   translate(error) {
@@ -13,4 +13,4 @@ DomainErrorTranslator._directories = {
   'NEW_USER.USERNAME_CONTAIN_RESTRICTED_CHARACTER': new InvariantError('tidak dapat membuat user baru karena username mengandung karakter terlarang'),
 };
 
-module.exports = DomainErrorTranslator;
+export default DomainErrorTranslator;

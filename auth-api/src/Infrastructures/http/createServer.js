@@ -1,7 +1,7 @@
-const express = require('express');
-const ClientError = require('../../Commons/exceptions/ClientError');
-const DomainErrorTranslator = require('../../Commons/exceptions/DomainErrorTranslator');
-const users = require('../../Interfaces/http/api/users');
+import express from 'express';
+import ClientError from '../../Commons/exceptions/ClientError.js';
+import DomainErrorTranslator from '../../Commons/exceptions/DomainErrorTranslator.js';
+import users from '../../Interfaces/http/api/users/index.js';
 
 const createServer = async (container) => {
   const app = express();
@@ -37,4 +37,4 @@ const createServer = async (container) => {
   return app;
 };
 
-module.exports = createServer;
+export default createServer;

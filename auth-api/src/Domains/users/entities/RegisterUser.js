@@ -28,4 +28,4 @@ class RegisterUser {
   }
 }
 
-module.exports = RegisterUser;
+export default RegisterUser;

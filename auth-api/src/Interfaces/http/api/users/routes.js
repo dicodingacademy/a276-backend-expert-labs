@@ -1,11 +1,11 @@
-const { Router } = require('express');
+import express from 'express';
 
 const routes = (handler) => {
-  const router = Router();
+  const router = express.Router();
 
   router.post('/', handler.postUserHandler);
 
   return router;
 };
 
-module.exports = routes;
+export default routes;
