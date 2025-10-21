@@ -1,4 +1,4 @@
-import { jest } from '@jest/globals';
+import { describe, expect, it, vi } from 'vitest';
 import FigureCalculator from './FigureCalculator.js';
 import MathBasic from './MathBasic.js';
 
@@ -37,8 +37,8 @@ describe('A FigureCalculator', () => {
       // Arrange
       const length = 20;
       const width = 10;
-      const spyAdd = jest.spyOn(MathBasic, 'add');
-      const spyMultiply = jest.spyOn(MathBasic, 'multiply');
+      const spyAdd = vi.spyOn(MathBasic, 'add');
+      const spyMultiply = vi.spyOn(MathBasic, 'multiply');
       const figureCalculator = new FigureCalculator(MathBasic);
 
       // Action
@@ -72,7 +72,7 @@ describe('A FigureCalculator', () => {
       // Arrange
       const length = 5;
       const width = 8;
-      const spyMultiply = jest.spyOn(MathBasic, 'multiply');
+      const spyMultiply = vi.spyOn(MathBasic, 'multiply');
       const figureCalculator = new FigureCalculator(MathBasic);
 
       // Action
@@ -80,7 +80,7 @@ describe('A FigureCalculator', () => {
 
       // Assert
       expect(result).toEqual(40);
-      expect(spyMultiply).toBeCalledWith(length, width);
+      expect(spyMultiply).toHaveBeenCalledWith(length, width);
     });
   });
 
@@ -107,7 +107,7 @@ describe('A FigureCalculator', () => {
       const sideA = 5;
       const sideB = 7;
       const base = 10;
-      const spyAdd = jest.spyOn(MathBasic, 'add');
+      const spyAdd = vi.spyOn(MathBasic, 'add');
       const figureCalculator = new FigureCalculator(MathBasic);
 
       // Action
@@ -115,7 +115,7 @@ describe('A FigureCalculator', () => {
 
       // Assert
       expect(result).toEqual(22); // (sideA + sideB + base)
-      expect(spyAdd).toBeCalledWith(sideA, (sideB + base));
+      expect(spyAdd).toHaveBeenCalledWith(sideA, (sideB + base));
     });
   });
 
@@ -140,8 +140,8 @@ describe('A FigureCalculator', () => {
       // Arrange
       const base = 10;
       const height = 15;
-      const spyMultiply = jest.spyOn(MathBasic, 'multiply');
-      const spyDivide = jest.spyOn(MathBasic, 'divide');
+      const spyMultiply = vi.spyOn(MathBasic, 'multiply');
+      const spyDivide = vi.spyOn(MathBasic, 'divide');
       const figureCalculator = new FigureCalculator(MathBasic);
 
       // Action
@@ -149,8 +149,8 @@ describe('A FigureCalculator', () => {
 
       // Assert
       expect(result).toEqual(75); // (base * height) / 2
-      expect(spyMultiply).toBeCalledWith(base, height);
-      expect(spyDivide).toBeCalledWith(150, 2);
+      expect(spyMultiply).toHaveBeenCalledWith(base, height);
+      expect(spyDivide).toHaveBeenCalledWith(150, 2);
     });
   });
 });
