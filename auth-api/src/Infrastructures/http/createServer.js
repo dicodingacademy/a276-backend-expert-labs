@@ -8,7 +8,7 @@ const createServer = async (container) => {
 
   app.use(express.json());
 
-  app.use(users(container));
+  app.use('/users', users(container));
 
   app.use((req, res) => {
     res.status(404).json({

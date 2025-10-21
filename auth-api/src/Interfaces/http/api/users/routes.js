@@ -1,9 +1,11 @@
-const routes = (handler) => ([
-  {
-    method: 'POST',
-    path: '/users',
-    handler: handler.postUserHandler,
-  },
-]);
+const { Router } = require('express');
+
+const routes = (handler) => {
+  const router = Router();
+
+  router.post('/', handler.postUserHandler);
+
+  return router;
+};
 
 module.exports = routes;
