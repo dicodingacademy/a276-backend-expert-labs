@@ -1,30 +1,18 @@
-import Hapi from '@hapi/hapi';
+import express from 'express';
 
 const createServer = () => {
-  const server = Hapi.server({
-    host: 'localhost',
-    port: 5000,
+  const app = express();
+
+  app.get('/hello', (_req, res) => {
+    res.json({ value: 'Hello World' });
   });
 
-  server.route([
-    {
-      method: 'GET',
-      path: '/hello',
-      handler: () => {
-        return { value: 'Hello World' };
-      },
-    },
-    {
-      method: 'GET',
-      path: '/hello/{name}',
-      handler: (request) => {
-        const { name } = request.params;
-        return { value: `Hello ${name}`};
-      },
-    },
-  ]);
+  app.get('/hello/:name', (req, res) => {
+    const { name } = req.params;
+    res.json({ value: `Hello ${name}` });
+  });
 
-  return server;
+  return app;
 };
 
 export default createServer;
