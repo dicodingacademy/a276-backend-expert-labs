@@ -1,8 +1,8 @@
-const request = require('supertest');
-const pool = require('../../database/postgres/pool');
-const UsersTableTestHelper = require('../../../../tests/UsersTableTestHelper');
-const container = require('../../container');
-const createServer = require('../createServer');
+import request from 'supertest';
+import pool from '../../database/postgres/pool.js';
+import UsersTableTestHelper from '../../../../tests/UsersTableTestHelper.js';
+import container from '../../container.js';
+import createServer from '../createServer.js';
 
 describe('HTTP server', () => {
   afterAll(async () => {

@@ -1,5 +1,5 @@
-const UsersHandler = require('./handler');
-const routes = require('./routes');
+import UsersHandler from './handler.js';
+import routes from './routes.js';
 
 const users = (container) => {
   const usersHandler = new UsersHandler(container);
@@ -7,4 +7,4 @@ const users = (container) => {
   return routes(usersHandler);
 };
 
-module.exports = users;
+export default users;

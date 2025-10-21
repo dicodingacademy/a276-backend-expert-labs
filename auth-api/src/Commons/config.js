@@ -1,6 +1,6 @@
 /* istanbul ignore file */
-const dotenv = require('dotenv');
-const path = require('path');
+import dotenv from 'dotenv';
+import path from 'path';
 
 if (process.env.NODE_ENV === 'test') {
   dotenv.config({
@@ -30,4 +30,4 @@ const config = {
   },
 };
 
-module.exports = config;
+export default config;

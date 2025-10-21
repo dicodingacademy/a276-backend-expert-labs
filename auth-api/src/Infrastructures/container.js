@@ -1,20 +1,20 @@
 /* istanbul ignore file */
 
-const { createContainer } = require('instances-container');
+import { createContainer } from 'instances-container';
 
 // external agency
-const { nanoid } = require('nanoid');
-const bcrypt = require('bcrypt');
-const pool = require('./database/postgres/pool');
+import { nanoid } from 'nanoid';
+import bcrypt from 'bcrypt';
+import pool from './database/postgres/pool.js';
 
 // service (repository, helper, manager, etc)
-const UserRepositoryPostgres = require('./repository/UserRepositoryPostgres');
-const BcryptPasswordHash = require('./security/BcryptPasswordHash');
+import UserRepositoryPostgres from './repository/UserRepositoryPostgres.js';
+import BcryptPasswordHash from './security/BcryptPasswordHash.js';
 
 // use case
-const AddUserUseCase = require('../Applications/use_case/AddUserUseCase');
-const UserRepository = require('../Domains/users/UserRepository');
-const PasswordHash = require('../Applications/security/PasswordHash');
+import AddUserUseCase from '../Applications/use_case/AddUserUseCase.js';
+import UserRepository from '../Domains/users/UserRepository.js';
+import PasswordHash from '../Applications/security/PasswordHash.js';
 
 // creating container
 const container = createContainer();
@@ -69,4 +69,4 @@ container.register([
   },
 ]);
 
-module.exports = container;
+export default container;

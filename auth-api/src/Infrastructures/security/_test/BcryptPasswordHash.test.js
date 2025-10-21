@@ -1,6 +1,6 @@
-const { vi } = require('vitest');
-const bcrypt = require('bcrypt');
-const BcryptPasswordHash = require('../BcryptPasswordHash');
+import { vi } from 'vitest';
+import bcrypt from 'bcrypt';
+import BcryptPasswordHash from '../BcryptPasswordHash.js';
 
 describe('BcryptPasswordHash', () => {
   describe('hash function', () => {

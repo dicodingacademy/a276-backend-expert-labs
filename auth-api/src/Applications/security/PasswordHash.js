@@ -4,4 +4,4 @@ class PasswordHash {
   }
 }
 
-module.exports = PasswordHash;
+export default PasswordHash;
