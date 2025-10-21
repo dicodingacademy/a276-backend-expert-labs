@@ -1,35 +1,28 @@
+import request from 'supertest';
 import createServer from './createServer.js';
 
-describe('Hapi Server', () => {
-  it('should response 200 with payload value "Hello World" when GET /hello', async () => {
+describe('Express Server', () => {
+  it('should respond 200 with payload value "Hello World" when GET /hello', async () => {
     // Arrange
-    const server = createServer();
+    const app = createServer();
 
     // Action
-    const response = await server.inject({
-      method: 'GET',
-      url: '/hello',
-    });
+    const response = await request(app).get('/hello');
 
     // Assert
-    const responseJson = JSON.parse(response.payload);
-    expect(response.statusCode).toEqual(200);
-    expect(responseJson.value).toEqual('Hello World');
+    expect(response.status).toEqual(200);
+    expect(response.body.value).toEqual('Hello World');
   });
 
-  it('should response 200 with payload value "Hello john" when GET /hello/john', async () => {
+  it('should respond 200 with payload value "Hello john" when GET /hello/john', async () => {
     // Arrange
-    const server = createServer();
+    const app = createServer();
 
     // Action
-    const response = await server.inject({
-      method: 'GET',
-      url: '/hello/john',
-    });
+    const response = await request(app).get('/hello/john');
 
     // Assert
-    const responseJson = JSON.parse(response.payload);
-    expect(response.statusCode).toEqual(200);
-    expect(responseJson.value).toEqual('Hello john');
+    expect(response.status).toEqual(200);
+    expect(response.body.value).toEqual('Hello john');
   });
 });
