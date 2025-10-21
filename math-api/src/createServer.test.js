@@ -1,21 +1,26 @@
 import request from 'supertest';
 import {
+  afterEach,
   describe,
   expect,
   it,
-  jest,
-} from '@jest/globals';
+  vi,
+} from 'vitest';
 import createServer from './createServer.js';
 import FigureCalculator from './FigureCalculator.js';
 import MathBasic from './MathBasic.js';
 
 describe('A HTTP Server', () => {
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
   describe('when GET /add', () => {
     it('should respond with a status code of 200 and the payload value is addition result of a and b correctly', async () => {
       // Arrange
       const a = 10;
       const b = 20;
-      const spyAdd = jest.spyOn(MathBasic, 'add');
+      const spyAdd = vi.spyOn(MathBasic, 'add');
       const app = createServer({ mathBasic: MathBasic });
 
       // Action
@@ -33,7 +38,7 @@ describe('A HTTP Server', () => {
       // Arrange
       const a = 12;
       const b = 8;
-      const spySubtract = jest.spyOn(MathBasic, 'subtract');
+      const spySubtract = vi.spyOn(MathBasic, 'subtract');
       const app = createServer({ mathBasic: MathBasic });
 
       // Action
@@ -51,7 +56,7 @@ describe('A HTTP Server', () => {
       // Arrange
       const a = 10;
       const b = 5;
-      const spyMultiply = jest.spyOn(MathBasic, 'multiply');
+      const spyMultiply = vi.spyOn(MathBasic, 'multiply');
       const app = createServer({ mathBasic: MathBasic });
 
       // Action
@@ -69,7 +74,7 @@ describe('A HTTP Server', () => {
       // Arrange
       const a = 10;
       const b = 5;
-      const spyDivide = jest.spyOn(MathBasic, 'divide');
+      const spyDivide = vi.spyOn(MathBasic, 'divide');
       const app = createServer({ mathBasic: MathBasic });
 
       // Action
@@ -88,7 +93,7 @@ describe('A HTTP Server', () => {
       const length = 8;
       const width = 4;
       const figureCalculator = new FigureCalculator(MathBasic);
-      const spyCalculateRectanglePerimeter = jest.spyOn(figureCalculator, 'calculateRectanglePerimeter');
+      const spyCalculateRectanglePerimeter = vi.spyOn(figureCalculator, 'calculateRectanglePerimeter');
       const app = createServer({ figureCalculator });
 
       // Action
@@ -107,7 +112,7 @@ describe('A HTTP Server', () => {
       const length = 8;
       const width = 4;
       const figureCalculator = new FigureCalculator(MathBasic);
-      const spyCalculateRectangleArea = jest.spyOn(figureCalculator, 'calculateRectangleArea');
+      const spyCalculateRectangleArea = vi.spyOn(figureCalculator, 'calculateRectangleArea');
       const app = createServer({ figureCalculator });
 
       // Action
@@ -127,7 +132,7 @@ describe('A HTTP Server', () => {
       const sideB = 9;
       const base = 5;
       const figureCalculator = new FigureCalculator(MathBasic);
-      const spyCalculateTrianglePerimeter = jest.spyOn(figureCalculator, 'calculateTrianglePerimeter');
+      const spyCalculateTrianglePerimeter = vi.spyOn(figureCalculator, 'calculateTrianglePerimeter');
       const app = createServer({ figureCalculator });
 
       // Action
@@ -146,7 +151,7 @@ describe('A HTTP Server', () => {
       const base = 8;
       const height = 10;
       const figureCalculator = new FigureCalculator(MathBasic);
-      const spyCalculateTriangleArea = jest.spyOn(figureCalculator, 'calculateTriangleArea');
+      const spyCalculateTriangleArea = vi.spyOn(figureCalculator, 'calculateTriangleArea');
       const app = createServer({ figureCalculator });
 
       // Action
