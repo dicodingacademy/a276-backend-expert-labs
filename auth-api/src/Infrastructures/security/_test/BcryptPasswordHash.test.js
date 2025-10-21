@@ -1,3 +1,4 @@
+const { vi } = require('vitest');
 const bcrypt = require('bcrypt');
 const BcryptPasswordHash = require('../BcryptPasswordHash');
 
@@ -5,7 +6,7 @@ describe('BcryptPasswordHash', () => {
   describe('hash function', () => {
     it('should encrypt password correctly', async () => {
       // Arrange
-      const spyHash = jest.spyOn(bcrypt, 'hash');
+      const spyHash = vi.spyOn(bcrypt, 'hash');
       const bcryptPasswordHash = new BcryptPasswordHash(bcrypt);
 
       // Action

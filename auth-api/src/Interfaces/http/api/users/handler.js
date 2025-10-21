@@ -7,18 +7,20 @@ class UsersHandler {
     this.postUserHandler = this.postUserHandler.bind(this);
   }
 
-  async postUserHandler(request, h) {
-    const addUserUseCase = this._container.getInstance(AddUserUseCase.name);
-    const addedUser = await addUserUseCase.execute(request.payload);
+  async postUserHandler(req, res, next) {
+    try {
+      const addUserUseCase = this._container.getInstance(AddUserUseCase.name);
+      const addedUser = await addUserUseCase.execute(req.body);
 
-    const response = h.response({
-      status: 'success',
-      data: {
-        addedUser,
-      },
-    });
-    response.code(201);
-    return response;
+      res.status(201).json({
+        status: 'success',
+        data: {
+          addedUser,
+        },
+      });
+    } catch (error) {
+      next(error);
+    }
   }
 }
 
