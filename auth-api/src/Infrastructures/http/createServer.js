@@ -1,60 +1,40 @@
-const Hapi = require('@hapi/hapi');
+const express = require('express');
 const ClientError = require('../../Commons/exceptions/ClientError');
 const DomainErrorTranslator = require('../../Commons/exceptions/DomainErrorTranslator');
 const users = require('../../Interfaces/http/api/users');
-const config = require('../../Commons/config');
 
 const createServer = async (container) => {
-  const server = Hapi.server({
-    port: config.app.port,
-    host: config.app.host,
-    debug: config.app.debug,
+  const app = express();
+
+  app.use(express.json());
+
+  app.use(users(container));
+
+  app.use((req, res) => {
+    res.status(404).json({
+      status: 'fail',
+      message: 'resource not found',
+    });
   });
 
-  await server.register([
-    {
-      plugin: users,
-      options: { container },
-    },
-  ]);
+  app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
+    const translatedError = DomainErrorTranslator.translate(err);
 
-  server.ext('onPreResponse', (request, h) => {
-    // mendapatkan konteks response dari request
-    const { response } = request;
-
-    if (response instanceof Error) {
-      // bila response tersebut error, tangani sesuai kebutuhan
-      const translatedError = DomainErrorTranslator.translate(response);
-
-      // penanganan client error secara internal.
-      if (translatedError instanceof ClientError) {
-        const newResponse = h.response({
-          status: 'fail',
-          message: translatedError.message,
-        });
-        newResponse.code(translatedError.statusCode);
-        return newResponse;
-      }
-
-      // mempertahankan penanganan client error oleh hapi secara native, seperti 404, etc.
-      if (!translatedError.isServer) {
-        return h.continue;
-      }
-
-      // penanganan server error sesuai kebutuhan
-      const newResponse = h.response({
-        status: 'error',
-        message: 'terjadi kegagalan pada server kami',
+    if (translatedError instanceof ClientError) {
+      res.status(translatedError.statusCode).json({
+        status: 'fail',
+        message: translatedError.message,
       });
-      newResponse.code(500);
-      return newResponse;
+      return;
     }
 
-    // jika bukan error, lanjutkan dengan response sebelumnya (tanpa terintervensi)
-    return h.continue;
+    res.status(500).json({
+      status: 'error',
+      message: 'terjadi kegagalan pada server kami',
+    });
   });
 
-  return server;
+  return app;
 };
 
 module.exports = createServer;

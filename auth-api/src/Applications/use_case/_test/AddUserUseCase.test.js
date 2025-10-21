@@ -1,3 +1,4 @@
+const { vi } = require('vitest');
 const RegisterUser = require('../../../Domains/users/entities/RegisterUser');
 const RegisteredUser = require('../../../Domains/users/entities/RegisteredUser');
 const UserRepository = require('../../../Domains/users/UserRepository');
@@ -26,11 +27,11 @@ describe('AddUserUseCase', () => {
     const mockPasswordHash = new PasswordHash();
 
     /** mocking needed function */
-    mockUserRepository.verifyAvailableUsername = jest.fn()
+    mockUserRepository.verifyAvailableUsername = vi.fn()
       .mockImplementation(() => Promise.resolve());
-    mockPasswordHash.hash = jest.fn()
+    mockPasswordHash.hash = vi.fn()
       .mockImplementation(() => Promise.resolve('encrypted_password'));
-    mockUserRepository.addUser = jest.fn()
+    mockUserRepository.addUser = vi.fn()
       .mockImplementation(() => Promise.resolve(mockRegisteredUser));
 
     /** creating use case instance */

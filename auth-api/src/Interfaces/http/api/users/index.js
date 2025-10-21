@@ -1,10 +1,17 @@
+const express = require('express');
 const UsersHandler = require('./handler');
 const routes = require('./routes');
 
-module.exports = {
-  name: 'users',
-  register: async (server, { container }) => {
-    const usersHandler = new UsersHandler(container);
-    server.route(routes(usersHandler));
-  },
+const users = (container) => {
+  const router = express.Router();
+  const usersHandler = new UsersHandler(container);
+
+  routes(usersHandler).forEach((route) => {
+    const method = route.method.toLowerCase();
+    router[method](route.path, route.handler);
+  });
+
+  return router;
 };
+
+module.exports = users;
