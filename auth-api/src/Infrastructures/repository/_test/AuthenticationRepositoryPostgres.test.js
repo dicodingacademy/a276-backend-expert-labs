@@ -1,7 +1,14 @@
-const InvariantError = require('../../../Commons/exceptions/InvariantError');
-const AuthenticationsTableTestHelper = require('../../../../tests/AuthenticationsTableTestHelper');
-const pool = require('../../database/postgres/pool');
-const AuthenticationRepositoryPostgres = require('../AuthenticationRepositoryPostgres');
+import {
+  afterAll,
+  afterEach,
+  describe,
+  expect,
+  it,
+} from 'vitest';
+import InvariantError from '../../../Commons/exceptions/InvariantError.js';
+import AuthenticationsTableTestHelper from '../../../../tests/AuthenticationsTableTestHelper.js';
+import pool from '../../database/postgres/pool.js';
+import AuthenticationRepositoryPostgres from '../AuthenticationRepositoryPostgres.js';
 
 describe('AuthenticationRepository postgres', () => {
   afterEach(async () => {

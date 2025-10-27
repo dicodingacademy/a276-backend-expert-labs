@@ -1,5 +1,5 @@
 /* istanbul ignore file */
-const pool = require('../src/Infrastructures/database/postgres/pool');
+import pool from '../src/Infrastructures/database/postgres/pool.js';
 
 const UsersTableTestHelper = {
   async addUser({
@@ -28,4 +28,4 @@ const UsersTableTestHelper = {
   },
 };
 
-module.exports = UsersTableTestHelper;
+export default UsersTableTestHelper;

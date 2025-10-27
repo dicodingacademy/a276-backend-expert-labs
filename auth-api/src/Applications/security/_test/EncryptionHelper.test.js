@@ -1,4 +1,5 @@
-const PasswordHash = require('../PasswordHash');
+import { describe, expect, it } from 'vitest';
+import PasswordHash from '../PasswordHash.js';
 
 describe('EncryptionHelper interface', () => {
   it('should throw error when invoke abstract behavior', async () => {

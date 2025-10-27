@@ -1,7 +1,8 @@
-const Jwt = require('@hapi/jwt');
-const InvariantError = require('../../../Commons/exceptions/InvariantError');
-const JwtTokenManager = require('../JwtTokenManager');
-const config = require('../../../Commons/config');
+import { describe, expect, it, vi } from 'vitest';
+import Jwt from '@hapi/jwt';
+import InvariantError from '../../../Commons/exceptions/InvariantError.js';
+import JwtTokenManager from '../JwtTokenManager.js';
+import config from '../../../Commons/config.js';
 
 describe('JwtTokenManager', () => {
   describe('createAccessToken function', () => {
@@ -11,7 +12,7 @@ describe('JwtTokenManager', () => {
         username: 'dicoding',
       };
       const mockJwtToken = {
-        generate: jest.fn().mockImplementation(() => 'mock_token'),
+        generate: vi.fn().mockImplementation(() => 'mock_token'),
       };
       const jwtTokenManager = new JwtTokenManager(mockJwtToken);
 
@@ -31,7 +32,7 @@ describe('JwtTokenManager', () => {
         username: 'dicoding',
       };
       const mockJwtToken = {
-        generate: jest.fn().mockImplementation(() => 'mock_token'),
+        generate: vi.fn().mockImplementation(() => 'mock_token'),
       };
       const jwtTokenManager = new JwtTokenManager(mockJwtToken);
 

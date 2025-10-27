@@ -1,10 +1,9 @@
-const routes = require('./routes');
-const AuthenticationsHandler = require('./handler');
+import routes from './routes.js';
+import AuthenticationsHandler from './handler.js';
 
-module.exports = {
-  name: 'authentications',
-  register: async (server, { container }) => {
-    const authenticationsHandler = new AuthenticationsHandler(container);
-    server.route(routes(authenticationsHandler));
-  },
+const authentications = (container) => {
+  const authenticationsHandler = new AuthenticationsHandler(container);
+  return routes(authenticationsHandler);
 };
+
+export default authentications;

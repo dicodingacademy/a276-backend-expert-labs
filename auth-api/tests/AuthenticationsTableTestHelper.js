@@ -1,5 +1,5 @@
 /* istanbul ignore file */
-const pool = require('../src/Infrastructures/database/postgres/pool');
+import pool from '../src/Infrastructures/database/postgres/pool.js';
 
 const AuthenticationsTableTestHelper = {
   async addToken(token) {
@@ -26,4 +26,4 @@ const AuthenticationsTableTestHelper = {
   },
 };
 
-module.exports = AuthenticationsTableTestHelper;
+export default AuthenticationsTableTestHelper;

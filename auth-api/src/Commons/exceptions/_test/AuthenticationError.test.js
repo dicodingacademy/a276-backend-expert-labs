@@ -1,5 +1,6 @@
-const AuthenticationError = require('../AuthenticationError');
-const ClientError = require('../ClientError');
+import { describe, expect, it } from 'vitest';
+import AuthenticationError from '../AuthenticationError.js';
+import ClientError from '../ClientError.js';
 
 describe('AuthenticationError', () => {
   it('should create AuthenticationError correctly', () => {

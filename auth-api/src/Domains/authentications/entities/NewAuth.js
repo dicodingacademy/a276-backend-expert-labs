@@ -19,4 +19,4 @@ class NewAuth {
   }
 }
 
-module.exports = NewAuth;
+export default NewAuth;

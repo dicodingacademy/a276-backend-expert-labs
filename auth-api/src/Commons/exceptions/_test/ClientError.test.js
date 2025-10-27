@@ -1,4 +1,5 @@
-const ClientError = require('../ClientError');
+import { describe, expect, it } from 'vitest';
+import ClientError from '../ClientError.js';
 
 describe('ClientError', () => {
   it('should throw error when directly use it', () => {

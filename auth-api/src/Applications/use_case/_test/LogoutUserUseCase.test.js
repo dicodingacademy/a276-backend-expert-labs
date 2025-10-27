@@ -1,5 +1,6 @@
-const AuthenticationRepository = require('../../../Domains/authentications/AuthenticationRepository');
-const LogoutUserUseCase = require('../LogoutUserUseCase');
+import { describe, expect, it, vi } from 'vitest';
+import AuthenticationRepository from '../../../Domains/authentications/AuthenticationRepository.js';
+import LogoutUserUseCase from '../LogoutUserUseCase.js';
 
 describe('LogoutUserUseCase', () => {
   it('should throw error if use case payload not contain refresh token', async () => {
@@ -32,9 +33,9 @@ describe('LogoutUserUseCase', () => {
       refreshToken: 'refreshToken',
     };
     const mockAuthenticationRepository = new AuthenticationRepository();
-    mockAuthenticationRepository.checkAvailabilityToken = jest.fn()
+    mockAuthenticationRepository.checkAvailabilityToken = vi.fn()
       .mockImplementation(() => Promise.resolve());
-    mockAuthenticationRepository.deleteToken = jest.fn()
+    mockAuthenticationRepository.deleteToken = vi.fn()
       .mockImplementation(() => Promise.resolve());
 
     const logoutUserUseCase = new LogoutUserUseCase({

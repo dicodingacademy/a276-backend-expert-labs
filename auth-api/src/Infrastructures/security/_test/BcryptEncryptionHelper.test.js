@@ -1,12 +1,13 @@
-const bcrypt = require('bcrypt');
-const AuthenticationError = require('../../../Commons/exceptions/AuthenticationError');
-const BcryptPasswordHash = require('../BcryptPasswordHash');
+import { describe, expect, it, vi } from 'vitest';
+import bcrypt from 'bcrypt';
+import AuthenticationError from '../../../Commons/exceptions/AuthenticationError.js';
+import BcryptPasswordHash from '../BcryptPasswordHash.js';
 
 describe('BcryptPasswordHash', () => {
   describe('encryptPassword function', () => {
     it('should encrypt password correctly', async () => {
       // Arrange
-      const spyHash = jest.spyOn(bcrypt, 'hash');
+      const spyHash = vi.spyOn(bcrypt, 'hash');
       const bcryptPasswordHash = new BcryptPasswordHash(bcrypt);
 
       // Action

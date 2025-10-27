@@ -1,5 +1,6 @@
-const NotFoundError = require('../NotFoundError');
-const ClientError = require('../ClientError');
+import { describe, expect, it } from 'vitest';
+import NotFoundError from '../NotFoundError.js';
+import ClientError from '../ClientError.js';
 
 describe('NotFoundError', () => {
   it('should create error correctly', () => {

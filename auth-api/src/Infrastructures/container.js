@@ -1,28 +1,28 @@
 /* istanbul ignore file */
 
-const { createContainer } = require('instances-container');
+import { createContainer } from 'instances-container';
 
 // external agency
-const { nanoid } = require('nanoid');
-const bcrypt = require('bcrypt');
-const Jwt = require('@hapi/jwt');
-const pool = require('./database/postgres/pool');
+import { nanoid } from 'nanoid';
+import bcrypt from 'bcrypt';
+import Jwt from '@hapi/jwt';
+import pool from './database/postgres/pool.js';
 
 // service (repository, helper, manager, etc)
-const UserRepository = require('../Domains/users/UserRepository');
-const PasswordHash = require('../Applications/security/PasswordHash');
-const UserRepositoryPostgres = require('./repository/UserRepositoryPostgres');
-const BcryptPasswordHash = require('./security/BcryptPasswordHash');
+import UserRepository from '../Domains/users/UserRepository.js';
+import PasswordHash from '../Applications/security/PasswordHash.js';
+import UserRepositoryPostgres from './repository/UserRepositoryPostgres.js';
+import BcryptPasswordHash from './security/BcryptPasswordHash.js';
 
 // use case
-const AddUserUseCase = require('../Applications/use_case/AddUserUseCase');
-const AuthenticationTokenManager = require('../Applications/security/AuthenticationTokenManager');
-const JwtTokenManager = require('./security/JwtTokenManager');
-const LoginUserUseCase = require('../Applications/use_case/LoginUserUseCase');
-const AuthenticationRepository = require('../Domains/authentications/AuthenticationRepository');
-const AuthenticationRepositoryPostgres = require('./repository/AuthenticationRepositoryPostgres');
-const LogoutUserUseCase = require('../Applications/use_case/LogoutUserUseCase');
-const RefreshAuthenticationUseCase = require('../Applications/use_case/RefreshAuthenticationUseCase');
+import AddUserUseCase from '../Applications/use_case/AddUserUseCase.js';
+import AuthenticationTokenManager from '../Applications/security/AuthenticationTokenManager.js';
+import JwtTokenManager from './security/JwtTokenManager.js';
+import LoginUserUseCase from '../Applications/use_case/LoginUserUseCase.js';
+import AuthenticationRepository from '../Domains/authentications/AuthenticationRepository.js';
+import AuthenticationRepositoryPostgres from './repository/AuthenticationRepositoryPostgres.js';
+import LogoutUserUseCase from '../Applications/use_case/LogoutUserUseCase.js';
+import RefreshAuthenticationUseCase from '../Applications/use_case/RefreshAuthenticationUseCase.js';
 
 // creating container
 const container = createContainer();
@@ -154,4 +154,4 @@ container.register([
   },
 ]);
 
-module.exports = container;
+export default container;

@@ -1,4 +1,4 @@
-const InvariantError = require('./InvariantError');
+import InvariantError from './InvariantError.js';
 
 const DomainErrorTranslator = {
   translate(error) {
@@ -19,4 +19,4 @@ DomainErrorTranslator._directories = {
   'DELETE_AUTHENTICATION_USE_CASE.PAYLOAD_NOT_MEET_DATA_TYPE_SPECIFICATION': new InvariantError('refresh token harus string'),
 };
 
-module.exports = DomainErrorTranslator;
+export default DomainErrorTranslator;
