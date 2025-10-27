@@ -5,7 +5,7 @@ import { createContainer } from 'instances-container';
 // external agency
 import { nanoid } from 'nanoid';
 import bcrypt from 'bcrypt';
-import Jwt from '@hapi/jwt';
+import jwt from 'jsonwebtoken';
 import pool from './database/postgres/pool.js';
 
 // service (repository, helper, manager, etc)
@@ -71,7 +71,7 @@ container.register([
     parameter: {
       dependencies: [
         {
-          concrete: Jwt.token,
+          concrete: jwt,
         },
       ],
     },
