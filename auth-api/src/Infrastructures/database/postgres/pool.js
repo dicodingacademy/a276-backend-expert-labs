@@ -1,7 +1,9 @@
 /* istanbul ignore file */
-const { Pool } = require('pg');
-const config = require('../../../Commons/config');
+import pkg from 'pg';
+import config from '../../../Commons/config.js';
+
+const { Pool } = pkg;
 
 const pool = new Pool(config.database);
 
-module.exports = pool;
+export default pool;

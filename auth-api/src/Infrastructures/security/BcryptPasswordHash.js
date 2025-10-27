@@ -1,5 +1,5 @@
-const PasswordHash = require('../../Applications/security/PasswordHash');
-const AuthenticationError = require('../../Commons/exceptions/AuthenticationError');
+import PasswordHash from '../../Applications/security/PasswordHash.js';
+import AuthenticationError from '../../Commons/exceptions/AuthenticationError.js';
 
 class BcryptPasswordHash extends PasswordHash {
   constructor(bcrypt, saltRound = 10) {
@@ -21,4 +21,4 @@ class BcryptPasswordHash extends PasswordHash {
   }
 }
 
-module.exports = BcryptPasswordHash;
+export default BcryptPasswordHash;

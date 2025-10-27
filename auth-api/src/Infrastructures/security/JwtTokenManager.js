@@ -1,6 +1,6 @@
-const AuthenticationTokenManager = require('../../Applications/security/AuthenticationTokenManager');
-const config = require('../../Commons/config');
-const InvariantError = require('../../Commons/exceptions/InvariantError');
+import AuthenticationTokenManager from '../../Applications/security/AuthenticationTokenManager.js';
+import config from '../../Commons/config.js';
+import InvariantError from '../../Commons/exceptions/InvariantError.js';
 
 class JwtTokenManager extends AuthenticationTokenManager {
   constructor(jwt) {
@@ -31,4 +31,4 @@ class JwtTokenManager extends AuthenticationTokenManager {
   }
 }
 
-module.exports = JwtTokenManager;
+export default JwtTokenManager;

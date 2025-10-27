@@ -1,6 +1,6 @@
-const InvariantError = require('../../Commons/exceptions/InvariantError');
-const RegisteredUser = require('../../Domains/users/entities/RegisteredUser');
-const UserRepository = require('../../Domains/users/UserRepository');
+import InvariantError from '../../Commons/exceptions/InvariantError.js';
+import RegisteredUser from '../../Domains/users/entities/RegisteredUser.js';
+import UserRepository from '../../Domains/users/UserRepository.js';
 
 class UserRepositoryPostgres extends UserRepository {
   constructor(pool, idGenerator) {
@@ -52,4 +52,4 @@ class UserRepositoryPostgres extends UserRepository {
   }
 }
 
-module.exports = UserRepositoryPostgres;
+export default UserRepositoryPostgres;

@@ -32,4 +32,4 @@ class RefreshAuthenticationUseCase {
   }
 }
 
-module.exports = RefreshAuthenticationUseCase;
+export default RefreshAuthenticationUseCase;

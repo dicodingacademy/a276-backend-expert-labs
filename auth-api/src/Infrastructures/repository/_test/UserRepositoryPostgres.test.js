@@ -1,9 +1,16 @@
-const UsersTableTestHelper = require('../../../../tests/UsersTableTestHelper');
-const InvariantError = require('../../../Commons/exceptions/InvariantError');
-const RegisterUser = require('../../../Domains/users/entities/RegisterUser');
-const RegisteredUser = require('../../../Domains/users/entities/RegisteredUser');
-const pool = require('../../database/postgres/pool');
-const UserRepositoryPostgres = require('../UserRepositoryPostgres');
+import {
+  afterAll,
+  afterEach,
+  describe,
+  expect,
+  it,
+} from 'vitest';
+import UsersTableTestHelper from '../../../../tests/UsersTableTestHelper.js';
+import InvariantError from '../../../Commons/exceptions/InvariantError.js';
+import RegisterUser from '../../../Domains/users/entities/RegisterUser.js';
+import RegisteredUser from '../../../Domains/users/entities/RegisteredUser.js';
+import pool from '../../database/postgres/pool.js';
+import UserRepositoryPostgres from '../UserRepositoryPostgres.js';
 
 describe('UserRepositoryPostgres', () => {
   afterEach(async () => {

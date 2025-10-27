@@ -1,9 +1,10 @@
-const UserRepository = require('../../../Domains/users/UserRepository');
-const AuthenticationRepository = require('../../../Domains/authentications/AuthenticationRepository');
-const AuthenticationTokenManager = require('../../security/AuthenticationTokenManager');
-const PasswordHash = require('../../security/PasswordHash');
-const LoginUserUseCase = require('../LoginUserUseCase');
-const NewAuth = require('../../../Domains/authentications/entities/NewAuth');
+import { describe, expect, it, vi } from 'vitest';
+import UserRepository from '../../../Domains/users/UserRepository.js';
+import AuthenticationRepository from '../../../Domains/authentications/AuthenticationRepository.js';
+import AuthenticationTokenManager from '../../security/AuthenticationTokenManager.js';
+import PasswordHash from '../../security/PasswordHash.js';
+import LoginUserUseCase from '../LoginUserUseCase.js';
+import NewAuth from '../../../Domains/authentications/entities/NewAuth.js';
 
 describe('GetAuthenticationUseCase', () => {
   it('should orchestrating the get authentication action correctly', async () => {
@@ -22,15 +23,15 @@ describe('GetAuthenticationUseCase', () => {
     const mockPasswordHash = new PasswordHash();
 
     // Mocking
-    mockUserRepository.getPasswordByUsername = jest.fn()
+    mockUserRepository.getPasswordByUsername = vi.fn()
       .mockImplementation(() => Promise.resolve('encrypted_password'));
-    mockPasswordHash.compare = jest.fn()
+    mockPasswordHash.compare = vi.fn()
       .mockImplementation(() => Promise.resolve());
-    mockAuthenticationTokenManager.createAccessToken = jest.fn()
+    mockAuthenticationTokenManager.createAccessToken = vi.fn()
       .mockImplementation(() => Promise.resolve(expectedAuthentication.accessToken));
-    mockAuthenticationTokenManager.createRefreshToken = jest.fn()
+    mockAuthenticationTokenManager.createRefreshToken = vi.fn()
       .mockImplementation(() => Promise.resolve(expectedAuthentication.refreshToken));
-    mockAuthenticationRepository.addToken = jest.fn()
+    mockAuthenticationRepository.addToken = vi.fn()
       .mockImplementation(() => Promise.resolve());
 
     // create use case instance
