@@ -1,9 +1,9 @@
-import { Router } from 'express';
+import express from 'express';
 
 const routes = (handler) => {
-  const router = Router();
+  const router = express.Router();
 
-  router.post('/users', handler.postUserHandler);
+  router.post('/', handler.postUserHandler);
 
   return router;
 };

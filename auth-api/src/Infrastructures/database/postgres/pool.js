@@ -1,9 +1,7 @@
 /* istanbul ignore file */
-import pkg from 'pg';
+import pg from 'pg';
 import config from '../../../Commons/config.js';
 
-const { Pool } = pkg;
-
-const pool = new Pool(config.database);
+const pool = process.env.NODE_ENV === 'test' ? new Pool(testConfig) : new Pool();
 
 export default pool;

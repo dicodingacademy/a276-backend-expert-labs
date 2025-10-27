@@ -39,6 +39,7 @@ describe('HTTP server', () => {
         fullname: 'Dicoding Indonesia',
       };
       const app = await createServer(container);
+      const app = await createServer(container);
 
       const response = await request(app)
         .post('/users')
@@ -54,6 +55,7 @@ describe('HTTP server', () => {
         fullname: 'Dicoding Indonesia',
         password: 'secret',
       };
+      const app = await createServer(container);
       const app = await createServer(container);
 
       const response = await request(app)
@@ -73,6 +75,7 @@ describe('HTTP server', () => {
         fullname: ['Dicoding Indonesia'],
       };
       const app = await createServer(container);
+      const app = await createServer(container);
 
       const response = await request(app)
         .post('/users')
@@ -91,6 +94,7 @@ describe('HTTP server', () => {
         fullname: 'Dicoding Indonesia',
       };
       const app = await createServer(container);
+      const app = await createServer(container);
 
       const response = await request(app)
         .post('/users')
@@ -108,6 +112,7 @@ describe('HTTP server', () => {
         password: 'secret',
         fullname: 'Dicoding Indonesia',
       };
+      const app = await createServer(container);
       const app = await createServer(container);
 
       const response = await request(app)
