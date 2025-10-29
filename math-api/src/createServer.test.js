@@ -1,4 +1,3 @@
-import { describe, expect, it, vi } from 'vitest';
 import request from 'supertest';
 import createServer from './createServer.js';
 import FigureCalculator from './FigureCalculator.js';
