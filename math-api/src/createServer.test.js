@@ -1,11 +1,4 @@
 import request from 'supertest';
-import {
-  afterEach,
-  describe,
-  expect,
-  it,
-  vi,
-} from 'vitest';
 import createServer from './createServer.js';
 import FigureCalculator from './FigureCalculator.js';
 import MathBasic from './MathBasic.js';
