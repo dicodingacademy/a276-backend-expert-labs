@@ -1,9 +1,9 @@
 import routes from './routes.js';
-import AuthenticationsHandler from './handler.js';
+import AuthenticationsController from './controller.js';
 
 const authentications = (container) => {
-  const authenticationsHandler = new AuthenticationsHandler(container);
-  return routes(authenticationsHandler);
+  const authenticationsController = new AuthenticationsController(container);
+  return routes(authenticationsController);
 };
 
 export default authentications;

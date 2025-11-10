@@ -2,16 +2,16 @@ import LoginUserUseCase from '../../../../Applications/use_case/LoginUserUseCase
 import RefreshAuthenticationUseCase from '../../../../Applications/use_case/RefreshAuthenticationUseCase.js';
 import LogoutUserUseCase from '../../../../Applications/use_case/LogoutUserUseCase.js';
 
-class AuthenticationsHandler {
+class AuthenticationsController {
   constructor(container) {
     this._container = container;
 
-    this.postAuthenticationHandler = this.postAuthenticationHandler.bind(this);
-    this.putAuthenticationHandler = this.putAuthenticationHandler.bind(this);
-    this.deleteAuthenticationHandler = this.deleteAuthenticationHandler.bind(this);
+    this.postAuthentication = this.postAuthentication.bind(this);
+    this.putAuthentication = this.putAuthentication.bind(this);
+    this.deleteAuthentication = this.deleteAuthentication.bind(this);
   }
 
-  async postAuthenticationHandler(req, res, next) {
+  async postAuthentication(req, res, next) {
     try {
       const loginUserUseCase = this._container.getInstance(LoginUserUseCase.name);
       const { accessToken, refreshToken } = await loginUserUseCase.execute(req.body);
@@ -28,7 +28,7 @@ class AuthenticationsHandler {
     }
   }
 
-  async putAuthenticationHandler(req, res, next) {
+  async putAuthentication(req, res, next) {
     try {
       const refreshAuthenticationUseCase = this._container
         .getInstance(RefreshAuthenticationUseCase.name);
@@ -45,7 +45,7 @@ class AuthenticationsHandler {
     }
   }
 
-  async deleteAuthenticationHandler(req, res, next) {
+  async deleteAuthentication(req, res, next) {
     try {
       const logoutUserUseCase = this._container.getInstance(LogoutUserUseCase.name);
       await logoutUserUseCase.execute(req.body);
@@ -59,4 +59,4 @@ class AuthenticationsHandler {
   }
 }
 
-export default AuthenticationsHandler;
+export default AuthenticationsController;
