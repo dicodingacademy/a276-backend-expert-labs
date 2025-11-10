@@ -48,7 +48,7 @@ class UserRepositoryPostgres extends UserRepository {
       throw new InvariantError('username tidak ditemukan');
     }
 
-    return new RegisteredUser({ ...result.rows[0] });
+    return result.rows[0].password;
   }
 }
 
