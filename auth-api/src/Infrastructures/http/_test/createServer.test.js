@@ -202,7 +202,9 @@ describe('HTTP server', () => {
         .send(requestPayload);
 
       // Action
-      const response = await request(app).post('/users').send(requestPayload);
+      const response = await request(app)
+          .post('/users')
+          .send(requestPayload);
 
       // Assert
       expect(response.status).toEqual(401);
