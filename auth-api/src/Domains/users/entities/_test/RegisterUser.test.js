@@ -1,4 +1,3 @@
-import { describe, expect, it } from 'vitest';
 import RegisterUser from '../RegisterUser.js';
 
 describe('a RegisterUser entities', () => {

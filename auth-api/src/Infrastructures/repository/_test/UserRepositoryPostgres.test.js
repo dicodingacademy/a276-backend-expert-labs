@@ -1,10 +1,3 @@
-import {
-  afterAll,
-  afterEach,
-  describe,
-  expect,
-  it,
-} from 'vitest';
 import UsersTableTestHelper from '../../../../tests/UsersTableTestHelper.js';
 import InvariantError from '../../../Commons/exceptions/InvariantError.js';
 import RegisterUser from '../../../Domains/users/entities/RegisterUser.js';
@@ -78,6 +71,9 @@ describe('UserRepositoryPostgres', () => {
         username: 'dicoding',
         fullname: 'Dicoding Indonesia',
       }));
+      // Assert
+      const users = await UsersTableTestHelper.findUsersById('user-123');
+      expect(users).toHaveLength(1);
     });
   });
 

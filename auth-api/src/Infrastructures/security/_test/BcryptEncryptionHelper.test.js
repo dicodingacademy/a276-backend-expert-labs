@@ -1,4 +1,4 @@
-import { describe, expect, it, vi } from 'vitest';
+import { vi } from 'vitest';
 import bcrypt from 'bcrypt';
 import AuthenticationError from '../../../Commons/exceptions/AuthenticationError.js';
 import BcryptPasswordHash from '../BcryptPasswordHash.js';

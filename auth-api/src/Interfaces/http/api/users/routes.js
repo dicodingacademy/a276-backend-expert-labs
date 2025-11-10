@@ -1,9 +1,9 @@
 import express from 'express';
 
-const routes = (handler) => {
+const routes = (controller) => {
   const router = express.Router();
 
-  router.post('/users', handler.postUserHandler);
+  router.post('/', controller.postUser);
 
   return router;
 };

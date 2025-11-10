@@ -1,4 +1,3 @@
-import { describe, expect, it } from 'vitest';
 import ClientError from '../ClientError.js';
 import InvariantError from '../InvariantError.js';
 

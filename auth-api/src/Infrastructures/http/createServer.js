@@ -9,18 +9,17 @@ const createServer = async (container) => {
 
   app.use(express.json());
 
-  app.use('/', users(container));
+  app.use('/users', users(container));
   app.use('/', authentications(container));
 
   app.use((req, res) => {
     res.status(404).json({
       status: 'fail',
-      message: 'resource tidak ditemukan',
+      message: 'resource not found',
     });
   });
 
-  // eslint-disable-next-line no-unused-vars
-  app.use((err, req, res, next) => {
+  app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
     const translatedError = DomainErrorTranslator.translate(err);
 
     if (translatedError instanceof ClientError) {

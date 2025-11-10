@@ -1,3 +1,9 @@
+import { vi } from 'vitest';
+import RegisterUser from '../../../Domains/users/entities/RegisterUser.js';
+import RegisteredUser from '../../../Domains/users/entities/RegisteredUser.js';
+import UserRepository from '../../../Domains/users/UserRepository.js';
+import PasswordHash from '../../security/PasswordHash.js';
+import AddUserUseCase from '../AddUserUseCase.js';
 import { describe, expect, it, vi } from 'vitest';
 import RegisterUser from '../../../Domains/users/entities/RegisterUser.js';
 import RegisteredUser from '../../../Domains/users/entities/RegisteredUser.js';

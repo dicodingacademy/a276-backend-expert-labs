@@ -1,4 +1,3 @@
-import { describe, expect, it } from 'vitest';
 import NotFoundError from '../NotFoundError.js';
 import ClientError from '../ClientError.js';
 

@@ -1,4 +1,3 @@
-import { describe, expect, it } from 'vitest';
 import UserRepository from '../UserRepository.js';
 
 describe('UserRepository interface', () => {
