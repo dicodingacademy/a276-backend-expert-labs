@@ -9,7 +9,7 @@ describe('a RegisteredUser entities', () => {
     };
 
     // Action and Assert
-    expect(() => new RegisteredUser(payload)).toThrowError('ADDED_USER.NOT_CONTAIN_NEEDED_PROPERTY');
+    expect(() => new RegisteredUser(payload)).toThrowError('REGISTERED_USER.NOT_CONTAIN_NEEDED_PROPERTY');
   });
 
   it('should throw error when payload did not meet data type specification', () => {
@@ -21,7 +21,7 @@ describe('a RegisteredUser entities', () => {
     };
 
     // Action and Assert
-    expect(() => new RegisteredUser(payload)).toThrowError('ADDED_USER.NOT_MEET_DATA_TYPE_SPECIFICATION');
+    expect(() => new RegisteredUser(payload)).toThrowError('REGISTERED_USER.NOT_MEET_DATA_TYPE_SPECIFICATION');
   });
 
   it('should create registeredUser object correctly', () => {

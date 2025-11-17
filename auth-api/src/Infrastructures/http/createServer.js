@@ -10,13 +10,6 @@ const createServer = async (container) => {
 
   app.use('/users', users(container));
 
-  app.use((req, res) => {
-    res.status(404).json({
-      status: 'fail',
-      message: 'resource not found',
-    });
-  });
-
   app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
     const translatedError = DomainErrorTranslator.translate(err);
 
