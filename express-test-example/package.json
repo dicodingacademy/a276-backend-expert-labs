@@ -1,0 +1,20 @@
+{
+  "name": "express-test-example",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "src/createServer.js",
+  "dependencies": {
+    "express": "^5.0.1"
+  },
+  "devDependencies": {
+    "supertest": "^7.0.0",
+    "vitest": "3.2.4"
+  },
+  "scripts": {
+    "test": "vitest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
