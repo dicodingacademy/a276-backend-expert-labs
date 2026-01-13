@@ -1,6 +1,6 @@
-const Rocket = require('./Rocket');
-const RocketLauncher = require('./RocketLauncher');
-const RocketRepairKit = require('./RocketRepairKit');
+import Rocket from './Rocket.js';
+import RocketLauncher from './RocketLauncher.js';
+import RocketRepairKit from './RocketRepairKit.js';
 
 describe('A RocketLauncher', () => {
 
@@ -63,7 +63,7 @@ describe('A RocketLauncher', () => {
     /** mock! Kita butuh mengubah implementasi fungsi untuk menghasilkan keadaan sesuai skenario uji.
      * Dan kita butuh untuk menguji apakah fungsi yang dijalankan/diperlakukan. */
     const fakeRocketRepairKit = {
-      repair: jest.fn().mockImplementation((rocket) => {
+      repair: vi.fn().mockImplementation((rocket) => {
         if (rocket.name === 'repairableRocket') {
           return Promise.resolve();
         }
@@ -95,7 +95,7 @@ describe('A RocketLauncher', () => {
     const rocketRepairKit = new RocketRepairKit({}, {}, {});
     /** spy! Memata-matai fungsi repair pada objek RocketRepairKit
      * Tujuannya, untuk memastikan fungsi repair dijalankan */
-    const spyRepair = jest.spyOn(rocketRepairKit, 'repair');
+    const spyRepair = vi.spyOn(rocketRepairKit, 'repair');
     const rocketLauncher = new RocketLauncher(rocketRepairKit, [nasaRocket, spaceXRocket]);
 
     // Action
