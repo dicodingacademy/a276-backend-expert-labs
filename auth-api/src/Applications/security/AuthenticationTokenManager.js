@@ -16,4 +16,4 @@ class AuthenticationTokenManager {
   }
 }
 
-module.exports = AuthenticationTokenManager;
+export default AuthenticationTokenManager;

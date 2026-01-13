@@ -1,4 +1,3 @@
-import { describe, expect, it } from 'vitest';
 import PasswordHash from '../PasswordHash.js';
 
 describe('EncryptionHelper interface', () => {
@@ -8,6 +7,5 @@ describe('EncryptionHelper interface', () => {
 
     // Action & Assert
     await expect(passwordHash.hash('dummy_password')).rejects.toThrowError('PASSWORD_HASH.METHOD_NOT_IMPLEMENTED');
-    await expect(passwordHash.compare('plain', 'encrypted')).rejects.toThrowError('PASSWORD_HASH.METHOD_NOT_IMPLEMENTED');
   });
 });

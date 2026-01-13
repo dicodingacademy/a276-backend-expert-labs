@@ -1,4 +1,5 @@
-const NewAuth = require('../NewAuth');
+import { describe, expect, it } from 'vitest';
+import NewAuth from '../NewAuth.js';
 
 describe('NewAuth entities', () => {
   it('should throw error when payload not contain needed property', () => {

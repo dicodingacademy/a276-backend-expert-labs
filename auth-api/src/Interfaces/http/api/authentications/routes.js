@@ -1,19 +1,13 @@
-const routes = (handler) => ([
-  {
-    method: 'POST',
-    path: '/authentications',
-    handler: handler.postAuthenticationHandler,
-  },
-  {
-    method: 'PUT',
-    path: '/authentications',
-    handler: handler.putAuthenticationHandler,
-  },
-  {
-    method: 'DELETE',
-    path: '/authentications',
-    handler: handler.deleteAuthenticationHandler,
-  },
-]);
+import { Router } from 'express';
 
-module.exports = routes;
+const routes = (handler) => {
+  const router = Router();
+
+  router.post('/', handler.postAuthentication);
+  router.put('/', handler.putAuthentication);
+  router.delete('/', handler.deleteAuthentication);
+
+  return router;
+};
+
+export default routes;

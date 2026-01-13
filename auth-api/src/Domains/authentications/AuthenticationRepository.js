@@ -12,4 +12,4 @@ class AuthenticationRepository {
   }
 }
 
-module.exports = AuthenticationRepository;
+export default AuthenticationRepository;

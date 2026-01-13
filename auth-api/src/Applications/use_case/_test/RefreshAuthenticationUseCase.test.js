@@ -1,6 +1,7 @@
-const AuthenticationRepository = require('../../../Domains/authentications/AuthenticationRepository');
-const AuthenticationTokenManager = require('../../security/AuthenticationTokenManager');
-const RefreshAuthenticationUseCase = require('../RefreshAuthenticationUseCase');
+import { describe, expect, it, vi } from 'vitest';
+import AuthenticationRepository from '../../../Domains/authentications/AuthenticationRepository.js';
+import AuthenticationTokenManager from '../../security/AuthenticationTokenManager.js';
+import RefreshAuthenticationUseCase from '../RefreshAuthenticationUseCase.js';
 
 describe('RefreshAuthenticationUseCase', () => {
   it('should throw error if use case payload not contain refresh token', async () => {
@@ -35,13 +36,13 @@ describe('RefreshAuthenticationUseCase', () => {
     const mockAuthenticationRepository = new AuthenticationRepository();
     const mockAuthenticationTokenManager = new AuthenticationTokenManager();
     // Mocking
-    mockAuthenticationRepository.checkAvailabilityToken = jest.fn()
+    mockAuthenticationRepository.checkAvailabilityToken = vi.fn()
       .mockImplementation(() => Promise.resolve());
-    mockAuthenticationTokenManager.verifyRefreshToken = jest.fn()
+    mockAuthenticationTokenManager.verifyRefreshToken = vi.fn()
       .mockImplementation(() => Promise.resolve());
-    mockAuthenticationTokenManager.decodePayload = jest.fn()
+    mockAuthenticationTokenManager.decodePayload = vi.fn()
       .mockImplementation(() => Promise.resolve({ username: 'dicoding' }));
-    mockAuthenticationTokenManager.createAccessToken = jest.fn()
+    mockAuthenticationTokenManager.createAccessToken = vi.fn()
       .mockImplementation(() => Promise.resolve('some_new_access_token'));
     // Create the use case instace
     const refreshAuthenticationUseCase = new RefreshAuthenticationUseCase({

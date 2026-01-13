@@ -1,9 +1,10 @@
-const pool = require('../../database/postgres/pool');
-const UsersTableTestHelper = require('../../../../tests/UsersTableTestHelper');
-const AuthenticationsTableTestHelper = require('../../../../tests/AuthenticationsTableTestHelper');
-const container = require('../../container');
-const createServer = require('../createServer');
-const AuthenticationTokenManager = require('../../../Applications/security/AuthenticationTokenManager');
+import request from 'supertest';
+import pool from '../../database/postgres/pool.js';
+import UsersTableTestHelper from '../../../../tests/UsersTableTestHelper.js';
+import AuthenticationsTableTestHelper from '../../../../tests/AuthenticationsTableTestHelper.js';
+import container from '../../container.js';
+import createServer from '../createServer.js';
+import AuthenticationTokenManager from '../../../Applications/security/AuthenticationTokenManager.js';
 
 describe('HTTP server', () => {
   afterAll(async () => {
@@ -17,16 +18,13 @@ describe('HTTP server', () => {
 
   it('should response 404 when request unregistered route', async () => {
     // Arrange
-    const server = await createServer({});
+    const app = await createServer({});
 
     // Action
-    const response = await server.inject({
-      method: 'GET',
-      url: '/unregisteredRoute',
-    });
+    const response = await request(app).get('/unregisteredRoute');
 
     // Assert
-    expect(response.statusCode).toEqual(404);
+    expect(response.status).toEqual(404);
   });
 
   describe('when POST /users', () => {
@@ -37,20 +35,15 @@ describe('HTTP server', () => {
         password: 'secret',
         fullname: 'Dicoding Indonesia',
       };
-      const server = await createServer(container);
+      const app = await createServer(container);
 
       // Action
-      const response = await server.inject({
-        method: 'POST',
-        url: '/users',
-        payload: requestPayload,
-      });
+      const response = await request(app).post('/users').send(requestPayload);
 
       // Assert
-      const responseJson = JSON.parse(response.payload);
-      expect(response.statusCode).toEqual(201);
-      expect(responseJson.status).toEqual('success');
-      expect(responseJson.data.addedUser).toBeDefined();
+      expect(response.status).toEqual(201);
+      expect(response.body.status).toEqual('success');
+      expect(response.body.data.addedUser).toBeDefined();
     });
 
     it('should response 400 when request payload not contain needed property', async () => {
@@ -59,20 +52,15 @@ describe('HTTP server', () => {
         fullname: 'Dicoding Indonesia',
         password: 'secret',
       };
-      const server = await createServer(container);
+      const app = await createServer(container);
 
       // Action
-      const response = await server.inject({
-        method: 'POST',
-        url: '/users',
-        payload: requestPayload,
-      });
+      const response = await request(app).post('/users').send(requestPayload);
 
       // Assert
-      const responseJson = JSON.parse(response.payload);
-      expect(response.statusCode).toEqual(400);
-      expect(responseJson.status).toEqual('fail');
-      expect(responseJson.message).toEqual('tidak dapat membuat user baru karena properti yang dibutuhkan tidak ada');
+      expect(response.status).toEqual(400);
+      expect(response.body.status).toEqual('fail');
+      expect(response.body.message).toEqual('tidak dapat membuat user baru karena properti yang dibutuhkan tidak ada');
     });
 
     it('should response 400 when request payload not meet data type specification', async () => {
@@ -82,20 +70,15 @@ describe('HTTP server', () => {
         password: 'secret',
         fullname: ['Dicoding Indonesia'],
       };
-      const server = await createServer(container);
+      const app = await createServer(container);
 
       // Action
-      const response = await server.inject({
-        method: 'POST',
-        url: '/users',
-        payload: requestPayload,
-      });
+      const response = await request(app).post('/users').send(requestPayload);
 
       // Assert
-      const responseJson = JSON.parse(response.payload);
-      expect(response.statusCode).toEqual(400);
-      expect(responseJson.status).toEqual('fail');
-      expect(responseJson.message).toEqual('tidak dapat membuat user baru karena tipe data tidak sesuai');
+      expect(response.status).toEqual(400);
+      expect(response.body.status).toEqual('fail');
+      expect(response.body.message).toEqual('tidak dapat membuat user baru karena tipe data tidak sesuai');
     });
 
     it('should response 400 when username more than 50 character', async () => {
@@ -105,20 +88,16 @@ describe('HTTP server', () => {
         password: 'secret',
         fullname: 'Dicoding Indonesia',
       };
-      const server = await createServer(container);
+
+      const app = await createServer(container);
 
       // Action
-      const response = await server.inject({
-        method: 'POST',
-        url: '/users',
-        payload: requestPayload,
-      });
+      const response = await request(app).post('/users').send(requestPayload);
 
       // Assert
-      const responseJson = JSON.parse(response.payload);
-      expect(response.statusCode).toEqual(400);
-      expect(responseJson.status).toEqual('fail');
-      expect(responseJson.message).toEqual('tidak dapat membuat user baru karena karakter username melebihi batas limit');
+      expect(response.status).toEqual(400);
+      expect(response.body.status).toEqual('fail');
+      expect(response.body.message).toEqual('tidak dapat membuat user baru karena karakter username melebihi batas limit');
     });
 
     it('should response 400 when username contain restricted character', async () => {
@@ -128,20 +107,16 @@ describe('HTTP server', () => {
         password: 'secret',
         fullname: 'Dicoding Indonesia',
       };
-      const server = await createServer(container);
+
+      const app = await createServer(container);
 
       // Action
-      const response = await server.inject({
-        method: 'POST',
-        url: '/users',
-        payload: requestPayload,
-      });
+      const response = await request(app).post('/users').send(requestPayload);
 
       // Assert
-      const responseJson = JSON.parse(response.payload);
-      expect(response.statusCode).toEqual(400);
-      expect(responseJson.status).toEqual('fail');
-      expect(responseJson.message).toEqual('tidak dapat membuat user baru karena username mengandung karakter terlarang');
+      expect(response.status).toEqual(400);
+      expect(response.body.status).toEqual('fail');
+      expect(response.body.message).toEqual('tidak dapat membuat user baru karena username mengandung karakter terlarang');
     });
 
     it('should response 400 when username unavailable', async () => {
@@ -152,350 +127,246 @@ describe('HTTP server', () => {
         fullname: 'Dicoding Indonesia',
         password: 'super_secret',
       };
-      const server = await createServer(container);
+      const app = await createServer(container);
 
       // Action
-      const response = await server.inject({
-        method: 'POST',
-        url: '/users',
-        payload: requestPayload,
-      });
+      const response = await request(app)
+        .post('/users')
+        .send(requestPayload);
 
-      // Assert
-      const responseJson = JSON.parse(response.payload);
-      expect(response.statusCode).toEqual(400);
-      expect(responseJson.status).toEqual('fail');
-      expect(responseJson.message).toEqual('username tidak tersedia');
+      expect(response.status).toEqual(400);
+      expect(response.body.status).toEqual('fail');
+      expect(response.body.message).toEqual('username tidak tersedia');
     });
   });
 
   describe('when POST /authentications', () => {
     it('should response 201 and new authentication', async () => {
-      // Arrange
       const requestPayload = {
         username: 'dicoding',
         password: 'secret',
       };
-      const server = await createServer(container);
-      // add user
-      await server.inject({
-        method: 'POST',
-        url: '/users',
-        payload: {
+      const app = await createServer(container);
+
+      await request(app)
+        .post('/users')
+        .send({
           username: 'dicoding',
           password: 'secret',
           fullname: 'Dicoding Indonesia',
-        },
-      });
+        });
 
-      // Action
-      const response = await server.inject({
-        method: 'POST',
-        url: '/authentications',
-        payload: requestPayload,
-      });
+      const response = await request(app)
+        .post('/authentications')
+        .send(requestPayload);
 
-      // Assert
-      const responseJson = JSON.parse(response.payload);
-      expect(response.statusCode).toEqual(201);
-      expect(responseJson.status).toEqual('success');
-      expect(responseJson.data.accessToken).toBeDefined();
-      expect(responseJson.data.refreshToken).toBeDefined();
+      expect(response.status).toEqual(201);
+      expect(response.body.status).toEqual('success');
+      expect(response.body.data.accessToken).toBeDefined();
+      expect(response.body.data.refreshToken).toBeDefined();
     });
 
     it('should response 400 if username not found', async () => {
-      // Arrange
       const requestPayload = {
         username: 'dicoding',
         password: 'secret',
       };
-      const server = await createServer(container);
+      const app = await createServer(container);
 
-      // Action
-      const response = await server.inject({
-        method: 'POST',
-        url: '/authentications',
-        payload: requestPayload,
-      });
+      const response = await request(app)
+        .post('/authentications')
+        .send(requestPayload);
 
-      // Assert
-      const responseJson = JSON.parse(response.payload);
-      expect(response.statusCode).toEqual(400);
-      expect(responseJson.status).toEqual('fail');
-      expect(responseJson.message).toEqual('username tidak ditemukan');
+      expect(response.status).toEqual(400);
+      expect(response.body.status).toEqual('fail');
+      expect(response.body.message).toEqual('username tidak ditemukan');
     });
 
     it('should response 401 if password wrong', async () => {
-      // Arrange
       const requestPayload = {
         username: 'dicoding',
         password: 'wrong_password',
       };
-      const server = await createServer(container);
-      // Add user
-      await server.inject({
-        method: 'POST',
-        url: '/users',
-        payload: {
+      const app = await createServer(container);
+
+      await request(app)
+        .post('/users')
+        .send({
           username: 'dicoding',
           password: 'secret',
           fullname: 'Dicoding Indonesia',
-        },
-      });
+        });
+
+      const response = await request(app)
+        .post('/authentications')
+        .send(requestPayload);
 
       // Action
-      const response = await server.inject({
-        method: 'POST',
-        url: '/authentications',
-        payload: requestPayload,
-      });
+      const response = await request(app)
+          .post('/users')
+          .send(requestPayload);
 
       // Assert
-      const responseJson = JSON.parse(response.payload);
-      expect(response.statusCode).toEqual(401);
-      expect(responseJson.status).toEqual('fail');
-      expect(responseJson.message).toEqual('kredensial yang Anda masukkan salah');
+      expect(response.status).toEqual(401);
+      expect(response.body.status).toEqual('fail');
+      expect(response.body.message).toEqual('kredensial yang Anda masukkan salah');
     });
 
+      // Assert
+      expect(response.status).toEqual(400);
+      expect(response.body.status).toEqual('fail');
+      expect(response.body.message).toEqual('username tidak tersedia');
     it('should response 400 if login payload not contain needed property', async () => {
-      // Arrange
       const requestPayload = {
         username: 'dicoding',
       };
-      const server = await createServer(container);
+      const app = await createServer(container);
 
-      // Action
-      const response = await server.inject({
-        method: 'POST',
-        url: '/authentications',
-        payload: requestPayload,
-      });
+      const response = await request(app)
+        .post('/authentications')
+        .send(requestPayload);
 
-      // Assert
-      const responseJson = JSON.parse(response.payload);
-      expect(response.statusCode).toEqual(400);
-      expect(responseJson.status).toEqual('fail');
-      expect(responseJson.message).toEqual('harus mengirimkan username dan password');
+      expect(response.status).toEqual(400);
+      expect(response.body.status).toEqual('fail');
+      expect(response.body.message).toEqual('harus mengirimkan username dan password');
     });
 
     it('should response 400 if login payload wrong data type', async () => {
-      // Arrange
       const requestPayload = {
         username: 123,
         password: 'secret',
       };
-      const server = await createServer(container);
+      const app = await createServer(container);
 
-      // Action
-      const response = await server.inject({
-        method: 'POST',
-        url: '/authentications',
-        payload: requestPayload,
-      });
+      const response = await request(app)
+        .post('/authentications')
+        .send(requestPayload);
 
-      // Assert
-      const responseJson = JSON.parse(response.payload);
-      expect(response.statusCode).toEqual(400);
-      expect(responseJson.status).toEqual('fail');
-      expect(responseJson.message).toEqual('username dan password harus string');
+      expect(response.status).toEqual(400);
+      expect(response.body.status).toEqual('fail');
+      expect(response.body.message).toEqual('username dan password harus string');
     });
   });
 
   describe('when PUT /authentications', () => {
     it('should return 200 and new access token', async () => {
-      // Arrange
-      const server = await createServer(container);
-      // add user
-      await server.inject({
-        method: 'POST',
-        url: '/users',
-        payload: {
+      const app = await createServer(container);
+
+      await request(app)
+        .post('/users')
+        .send({
           username: 'dicoding',
           password: 'secret',
           fullname: 'Dicoding Indonesia',
-        },
-      });
-      // login user
-      const loginResponse = await server.inject({
-        method: 'POST',
-        url: '/authentications',
-        payload: {
+        });
+
+      const loginResponse = await request(app)
+        .post('/authentications')
+        .send({
           username: 'dicoding',
           password: 'secret',
-        },
-      });
-      const { data: { refreshToken } } = JSON.parse(loginResponse.payload);
+        });
 
-      // Action
-      const response = await server.inject({
-        method: 'PUT',
-        url: '/authentications',
-        payload: {
-          refreshToken,
-        },
-      });
+      const { refreshToken } = loginResponse.body.data;
 
-      const responseJson = JSON.parse(response.payload);
-      expect(response.statusCode).toEqual(200);
-      expect(responseJson.status).toEqual('success');
-      expect(responseJson.data.accessToken).toBeDefined();
+      const response = await request(app)
+        .put('/authentications')
+        .send({ refreshToken });
+
+      expect(response.status).toEqual(200);
+      expect(response.body.status).toEqual('success');
+      expect(response.body.data.accessToken).toBeDefined();
     });
 
     it('should return 400 payload not contain refresh token', async () => {
-      // Arrange
-      const server = await createServer(container);
+      const app = await createServer(container);
 
-      // Action
-      const response = await server.inject({
-        method: 'PUT',
-        url: '/authentications',
-        payload: {},
-      });
+      const response = await request(app)
+        .put('/authentications')
+        .send({});
 
-      const responseJson = JSON.parse(response.payload);
-      expect(response.statusCode).toEqual(400);
-      expect(responseJson.status).toEqual('fail');
-      expect(responseJson.message).toEqual('harus mengirimkan token refresh');
+      expect(response.status).toEqual(400);
+      expect(response.body.status).toEqual('fail');
+      expect(response.body.message).toEqual('harus mengirimkan token refresh');
     });
 
     it('should return 400 if refresh token not string', async () => {
-      // Arrange
-      const server = await createServer(container);
+      const app = await createServer(container);
 
-      // Action
-      const response = await server.inject({
-        method: 'PUT',
-        url: '/authentications',
-        payload: {
-          refreshToken: 123,
-        },
-      });
+      const response = await request(app)
+        .put('/authentications')
+        .send({ refreshToken: 123 });
 
-      const responseJson = JSON.parse(response.payload);
-      expect(response.statusCode).toEqual(400);
-      expect(responseJson.status).toEqual('fail');
-      expect(responseJson.message).toEqual('refresh token harus string');
+      expect(response.status).toEqual(400);
+      expect(response.body.status).toEqual('fail');
+      expect(response.body.message).toEqual('refresh token harus string');
     });
 
     it('should return 400 if refresh token not valid', async () => {
-      // Arrange
-      const server = await createServer(container);
+      const app = await createServer(container);
 
-      // Action
-      const response = await server.inject({
-        method: 'PUT',
-        url: '/authentications',
-        payload: {
-          refreshToken: 'invalid_refresh_token',
-        },
-      });
+      const response = await request(app)
+        .put('/authentications')
+        .send({ refreshToken: 'invalid_refresh_token' });
 
-      // Assert
-      const responseJson = JSON.parse(response.payload);
-      expect(response.statusCode).toEqual(400);
-      expect(responseJson.status).toEqual('fail');
-      expect(responseJson.message).toEqual('refresh token tidak valid');
+      expect(response.status).toEqual(400);
+      expect(response.body.status).toEqual('fail');
+      expect(response.body.message).toEqual('refresh token tidak valid');
     });
 
     it('should return 400 if refresh token not registered in database', async () => {
-      // Arrange
-      const server = await createServer(container);
-      const refreshToken = await container.getInstance(AuthenticationTokenManager.name).createRefreshToken({ username: 'dicoding' });
+      const app = await createServer(container);
+      const refreshToken = await container
+        .getInstance(AuthenticationTokenManager.name)
+        .createRefreshToken({ username: 'dicoding' });
 
-      // Action
-      const response = await server.inject({
-        method: 'PUT',
-        url: '/authentications',
-        payload: {
-          refreshToken,
-        },
-      });
+      const response = await request(app)
+        .put('/authentications')
+        .send({ refreshToken });
 
-      // Assert
-      const responseJson = JSON.parse(response.payload);
-      expect(response.statusCode).toEqual(400);
-      expect(responseJson.status).toEqual('fail');
-      expect(responseJson.message).toEqual('refresh token tidak ditemukan di database');
+      expect(response.status).toEqual(400);
+      expect(response.body.status).toEqual('fail');
+      expect(response.body.message).toEqual('refresh token tidak ditemukan di database');
     });
   });
 
   describe('when DELETE /authentications', () => {
     it('should response 200 if refresh token valid', async () => {
-      // Arrange
-      const server = await createServer(container);
+      const app = await createServer(container);
       const refreshToken = 'refresh_token';
       await AuthenticationsTableTestHelper.addToken(refreshToken);
 
-      // Action
-      const response = await server.inject({
-        method: 'DELETE',
-        url: '/authentications',
-        payload: {
-          refreshToken,
-        },
-      });
+      const response = await request(app)
+        .delete('/authentications')
+        .send({ refreshToken });
 
-      // Assert
-      const responseJson = JSON.parse(response.payload);
-      expect(response.statusCode).toEqual(200);
-      expect(responseJson.status).toEqual('success');
+      expect(response.status).toEqual(200);
+      expect(response.body.status).toEqual('success');
     });
 
     it('should response 400 if refresh token not registered in database', async () => {
-      // Arrange
-      const server = await createServer(container);
+      const app = await createServer(container);
       const refreshToken = 'refresh_token';
 
-      // Action
-      const response = await server.inject({
-        method: 'DELETE',
-        url: '/authentications',
-        payload: {
-          refreshToken,
-        },
-      });
+      const response = await request(app)
+        .delete('/authentications')
+        .send({ refreshToken });
 
-      // Assert
-      const responseJson = JSON.parse(response.payload);
-      expect(response.statusCode).toEqual(400);
-      expect(responseJson.status).toEqual('fail');
-      expect(responseJson.message).toEqual('refresh token tidak ditemukan di database');
+      expect(response.status).toEqual(400);
+      expect(response.body.status).toEqual('fail');
+      expect(response.body.message).toEqual('refresh token tidak ditemukan di database');
     });
 
     it('should response 400 if payload not contain refresh token', async () => {
-      // Arrange
-      const server = await createServer(container);
+      const app = await createServer(container);
 
-      // Action
-      const response = await server.inject({
-        method: 'DELETE',
-        url: '/authentications',
-        payload: {},
-      });
+      const response = await request(app)
+        .delete('/authentications')
+        .send({});
 
-      const responseJson = JSON.parse(response.payload);
-      expect(response.statusCode).toEqual(400);
-      expect(responseJson.status).toEqual('fail');
-      expect(responseJson.message).toEqual('harus mengirimkan token refresh');
-    });
-
-    it('should response 400 if refresh token not string', async () => {
-      // Arrange
-      const server = await createServer(container);
-
-      // Action
-      const response = await server.inject({
-        method: 'DELETE',
-        url: '/authentications',
-        payload: {
-          refreshToken: 123,
-        },
-      });
-
-      const responseJson = JSON.parse(response.payload);
-      expect(response.statusCode).toEqual(400);
-      expect(responseJson.status).toEqual('fail');
-      expect(responseJson.message).toEqual('refresh token harus string');
+      expect(response.status).toEqual(400);
+      expect(response.body.status).toEqual('fail');
+      expect(response.body.message).toEqual('harus mengirimkan token refresh');
     });
   });
 
@@ -506,19 +377,14 @@ describe('HTTP server', () => {
       fullname: 'Dicoding Indonesia',
       password: 'super_secret',
     };
-    const server = await createServer({}); // fake injection
+    const app = await createServer({});
 
     // Action
-    const response = await server.inject({
-      method: 'POST',
-      url: '/users',
-      payload: requestPayload,
-    });
+    const response = await request(app).post('/users').send(requestPayload);
 
     // Assert
-    const responseJson = JSON.parse(response.payload);
-    expect(response.statusCode).toEqual(500);
-    expect(responseJson.status).toEqual('error');
-    expect(responseJson.message).toEqual('terjadi kegagalan pada server kami');
+    expect(response.status).toEqual(500);
+    expect(response.body.status).toEqual('error');
+    expect(response.body.message).toEqual('terjadi kegagalan pada server kami');
   });
 });

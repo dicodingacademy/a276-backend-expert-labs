@@ -1,4 +1,5 @@
-const AuthenticationRepository = require('../AuthenticationRepository');
+import { describe, expect, it } from 'vitest';
+import AuthenticationRepository from '../AuthenticationRepository.js';
 
 describe('AuthenticationRepository interface', () => {
   it('should throw error when invoke unimplemented method', async () => {

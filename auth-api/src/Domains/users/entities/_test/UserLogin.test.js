@@ -1,4 +1,5 @@
-const UserLogin = require('../UserLogin');
+import { describe, expect, it } from 'vitest';
+import UserLogin from '../UserLogin.js';
 
 describe('UserLogin entities', () => {
   it('should throw error when payload does not contain needed property', () => {

@@ -1,4 +1,4 @@
-const RegisterUser = require('../RegisterUser');
+import RegisterUser from '../RegisterUser.js';
 
 describe('a RegisterUser entities', () => {
   it('should throw error when payload did not contain needed property', () => {

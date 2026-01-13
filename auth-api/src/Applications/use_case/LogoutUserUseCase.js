@@ -24,4 +24,4 @@ class LogoutUserUseCase {
   }
 }
 
-module.exports = LogoutUserUseCase;
+export default LogoutUserUseCase;
