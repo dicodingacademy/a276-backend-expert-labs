@@ -1,16 +1,24 @@
-const createServer = require('./createServer');
-const FigureCalculator = require('./FigureCalculator');
-const MathBasic = require('./MathBasic');
+/* eslint-disable no-undef */
+import createServer from './createServer.js';
+import FigureCalculator from './FigureCalculator.js';
+import MathBasic from './MathBasic.js';
 
-const start = async () => {
+const start = () => {
   const figureCalculator = new FigureCalculator(MathBasic);
-  const server = createServer({
+  const app = createServer({
     mathBasic: MathBasic,
     figureCalculator,
   });
 
-  await server.start();
-  console.log(`Server start at ${server.info.uri}`);
+  const host = process.env.HOST ?? 'localhost';
+  const port = Number(process.env.PORT ?? 3000);
+
+  const server = app.listen(port, host, () => {
+
+    console.log(`Server start at http://${host}:${port}`);
+  });
+
+  return server;
 };
 
 start();

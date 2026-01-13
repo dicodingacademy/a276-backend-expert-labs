@@ -29,4 +29,4 @@ const MathBasic = {
   },
 };
 
-module.exports = MathBasic;
+export default MathBasic;
