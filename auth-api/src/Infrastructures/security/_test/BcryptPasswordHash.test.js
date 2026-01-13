@@ -1,11 +1,12 @@
-const bcrypt = require('bcrypt');
-const BcryptPasswordHash = require('../BcryptPasswordHash');
+import { vi } from 'vitest';
+import bcrypt from 'bcrypt';
+import BcryptPasswordHash from '../BcryptPasswordHash.js';
 
 describe('BcryptPasswordHash', () => {
   describe('hash function', () => {
     it('should encrypt password correctly', async () => {
       // Arrange
-      const spyHash = jest.spyOn(bcrypt, 'hash');
+      const spyHash = vi.spyOn(bcrypt, 'hash');
       const bcryptPasswordHash = new BcryptPasswordHash(bcrypt);
 
       // Action

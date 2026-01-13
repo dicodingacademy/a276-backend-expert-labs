@@ -1,10 +1,10 @@
-const UsersHandler = require('./handler');
-const routes = require('./routes');
+import routes from './routes.js';
+import UsersController from './controller.js';
 
-module.exports = {
-  name: 'users',
-  register: async (server, { container }) => {
-    const usersHandler = new UsersHandler(container);
-    server.route(routes(usersHandler));
-  },
+const users = (container) => {
+  const usersController = new UsersController(container);
+
+  return routes(usersController);
 };
+
+export default users;

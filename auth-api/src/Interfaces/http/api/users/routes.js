@@ -1,9 +1,11 @@
-const routes = (handler) => ([
-  {
-    method: 'POST',
-    path: '/users',
-    handler: handler.postUserHandler,
-  },
-]);
+import express from 'express';
 
-module.exports = routes;
+const routes = (controller) => {
+  const router = express.Router();
+
+  router.post('/', controller.postUser);
+
+  return router;
+};
+
+export default routes;
