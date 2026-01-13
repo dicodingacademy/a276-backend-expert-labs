@@ -46,4 +46,4 @@ class FigureCalculator {
   }
 }
 
-module.exports = FigureCalculator;
+export default FigureCalculator;

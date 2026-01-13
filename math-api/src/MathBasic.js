@@ -1,5 +1,5 @@
 const MathBasic = {
-  _validateArgs: (args) => {
+  _validateArgs(args) {
     if (args.length !== 2) {
       throw new Error('fungsi hanya menerima dua parameter');
     }
@@ -29,4 +29,4 @@ const MathBasic = {
   },
 };
 
-module.exports = MathBasic;
+export default MathBasic;
