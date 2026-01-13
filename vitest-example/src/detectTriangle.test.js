@@ -1,4 +1,4 @@
-const detectTriangle = require('./detectTriangle');
+import detectTriangle from './detectTriangle.js';
 
 describe('Sebuah fungsi detectTriangle', () => {
   it('harus mengembalikan segitiga sama sisi ketika semua nilai sisi sama', () => {
